@@ -2,6 +2,10 @@ package main
 
 import "github.com/gofiber/fiber/v2"
 
+const (
+	PORT string = ":8000"
+)
+
 func main() {
 	app := fiber.New()
 
@@ -9,5 +13,5 @@ func main() {
 		return c.SendString("Hello, World!")
 	})
 
-	app.Listen(":8000")
+	app.Listen(PORT)
 }
