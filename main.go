@@ -17,7 +17,7 @@ func main() {
 	app.Get("/", func(c *fiber.Ctx) error {
 		ticket := model.Ticket{
 			Topic:     "Test",
-			Timestamp: time.Now().UnixNano(),
+			Timestamp: time.Now().UnixMilli(),
 		}
 		return c.JSON(ticket)
 	})
