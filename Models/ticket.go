@@ -1,4 +1,4 @@
-package models
+package Models
 
 type Ticket struct {
 	Topic     string `json:"topic"`

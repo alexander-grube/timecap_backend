@@ -1,4 +1,4 @@
-package models
+package Models
 
 type Account struct {
 	Firstname string `json:"firstname" validate:"required,min=2,max=100"`
