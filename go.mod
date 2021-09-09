@@ -3,9 +3,8 @@ module github.com/spctr-cc/backend-bugtrack
 // +heroku goVersion go1.17
 go 1.17
 
-require github.com/gofiber/fiber/v2 v2.18.0
-
 require (
+	github.com/gofiber/fiber/v2 v2.18.0
 	github.com/andybalholm/brotli v1.0.2 // indirect
 	github.com/klauspost/compress v1.13.4 // indirect
 	github.com/lib/pq v1.10.3 // indirect
