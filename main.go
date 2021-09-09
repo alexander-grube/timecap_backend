@@ -2,7 +2,7 @@ package main
 
 import (
 	"os"
-	models "spctr/bugtrack/models"
+	"spctr/bugtrack/models"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
