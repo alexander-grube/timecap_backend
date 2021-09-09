@@ -1,4 +1,4 @@
-module spctr/bugtrack
+module github.com/spctr-cc/backend-bugtrack
 
 // +heroku goVersion go1.17
 go 1.17

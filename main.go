@@ -2,8 +2,9 @@ package main
 
 import (
 	"os"
-	"spctr/bugtrack/models"
 	"time"
+
+	"github.com/spctr-cc/backend-bugtrack/models"
 
 	"github.com/gofiber/fiber/v2"
 	_ "github.com/lib/pq"
