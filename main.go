@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	models "spctr/bugtrack/models"
 	"time"
 
@@ -8,8 +9,8 @@ import (
 	_ "github.com/lib/pq"
 )
 
-const (
-	PORT string = ":8000"
+var (
+	PORT string = os.Getenv("PORT")
 )
 
 func main() {
