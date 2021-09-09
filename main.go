@@ -25,5 +25,21 @@ func main() {
 		return c.JSON(ticket)
 	})
 
+	account := models.Account{
+		Firstname: "John",
+		Lastname: "Doe",
+		Email: "john.doe@example.com",
+		Password: "johnIsADoe",
+		Mobile: "555-12345678",
+		Street: "John Doe Street",
+		Zipcode: "12345",
+		City: "John Doe City",
+		Country: "Canada",
+	}
+
+	app.Post("/account", func(c *fiber.Ctx) error {
+		return c.JSON(account)
+	})
+
 	app.Listen(PORT)
 }
