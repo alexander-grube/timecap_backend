@@ -1,10 +1,11 @@
 package main
 
 import (
-	model "spctr/bugtrack/model"
+	models "spctr/bugtrack/models"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	_ "github.com/lib/pq"
 )
 
 const (
@@ -15,7 +16,7 @@ func main() {
 	app := fiber.New()
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		ticket := model.Ticket{
+		ticket := models.Ticket{
 			Topic:     "Test",
 			Timestamp: time.Now().UnixMilli(),
 		}
