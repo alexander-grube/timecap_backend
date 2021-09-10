@@ -46,7 +46,7 @@ func main() {
 	// }
 
 	app.Post("/account", func(c *fiber.Ctx) error {
-		ins := "INSERT INTO accounts VALUES('John', 'Doe', 'john.doe@example.com', 'johnIsADoe', '555-12345678', 'John Doe Street', '12345', 'John Doe City', 'Canada'"
+		ins := "INSERT INTO accounts (firstname, lastname, email, password, mobile, street, zipcode, city, country) VALUES('John', 'Doe', 'john.doe@example.com', 'johnIsADoe', '555-12345678', 'John Doe Street', '12345', 'John Doe City', 'Canada')"
 		res, err := db.Exec(ins)
 		if err != nil {
 			log.Fatal(err)
