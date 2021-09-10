@@ -56,8 +56,8 @@ func main() {
 
 	app.Get("/account", func(c *fiber.Ctx) error {
 		var acc model.Account
-		sel := "SELECT * from accounts"
-		err := db.QueryRow(sel).Scan(&acc)
+		sel := "SELECT (firstname, lastname) from accounts"
+		err := db.QueryRow(sel).Scan(&acc.Firstname, &acc.Lastname)
 		if err != nil{
 			log.Fatal(err)
 		}
