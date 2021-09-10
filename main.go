@@ -54,7 +54,7 @@ func main() {
 		return c.JSON(res)
 	})
 
-	app.Get("/db", func(c *fiber.Ctx) error {
+	app.Get("/account", func(c *fiber.Ctx) error {
 		sel := "SELECT * from accounts"
 		res, err := db.Exec(sel)
 		if err != nil{
