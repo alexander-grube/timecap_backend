@@ -22,6 +22,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer db.Close()
 	app := fiber.New()
 
 	app.Get("/", func(c *fiber.Ctx) error {
@@ -49,7 +50,16 @@ func main() {
 	})
 
 	app.Get("/db", func(c *fiber.Ctx) error {
-		return c.JSON(db.Stats().InUse)
+		sel := "SELECT * from accounts"
+		row, err := db.Query(sel)
+		if err != nil{
+			log.Fatal(err)
+		}
+		col, err := row.Columns()
+		if err != nil {
+			log.Fatal(err)
+		}
+		return c.JSON(col)
 	})
 
 	app.Listen(PORT)
