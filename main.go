@@ -33,33 +33,34 @@ func main() {
 		return c.JSON(ticket)
 	})
 
-	account := model.Account{
-		Firstname: "John",
-		Lastname:  "Doe",
-		Email:     "john.doe@example.com",
-		Password:  "johnIsADoe",
-		Mobile:    "555-12345678",
-		Street:    "John Doe Street",
-		Zipcode:   "12345",
-		City:      "John Doe City",
-		Country:   "Canada",
-	}
+	// account := model.Account{
+	// 	Firstname: "John",
+	// 	Lastname:  "Doe",
+	// 	Email:     "john.doe@example.com",
+	// 	Password:  "johnIsADoe",
+	// 	Mobile:    "555-12345678",
+	// 	Street:    "John Doe Street",
+	// 	Zipcode:   "12345",
+	// 	City:      "John Doe City",
+	// 	Country:   "Canada",
+	// }
 
 	app.Post("/account", func(c *fiber.Ctx) error {
-		return c.JSON(account)
+		ins := "INSERT INTO accounts VALUES('John', 'Doe', 'john.doe@example.com', 'johnIsADoe', '555-12345678', 'John Doe Street', '12345', 'John Doe City', 'Canada'"
+		res, err := db.Exec(ins)
+		if err != nil {
+			log.Fatal(err)
+		}
+		return c.JSON(res)
 	})
 
 	app.Get("/db", func(c *fiber.Ctx) error {
 		sel := "SELECT * from accounts"
-		row, err := db.Query(sel)
+		res, err := db.Exec(sel)
 		if err != nil{
 			log.Fatal(err)
 		}
-		col, err := row.Columns()
-		if err != nil {
-			log.Fatal(err)
-		}
-		return c.JSON(col)
+		return c.JSON(res)
 	})
 
 	app.Listen(PORT)
