@@ -4,7 +4,7 @@ import (
 	"os"
 	"time"
 
-	models "github.com/spctr-cc/backend-bugtrack/Models"
+	models "github.com/spctr-cc/backend-bugtrack/models"
 
 	"github.com/gofiber/fiber/v2"
 	_ "github.com/lib/pq"
