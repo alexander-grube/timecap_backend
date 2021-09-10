@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"net/http"
 	"os"
 	"time"
 
@@ -52,8 +51,12 @@ func main() {
 	}
 
 	app.Post("/account", func(c *fiber.Ctx) error {
-		db.Create(&account)
-		return c.JSON(http.StatusOK)
+		createdAccount := db.Create(&account)
+		err = createdAccount.Error
+		if err != nil {
+			return c.JSON(err)
+		}
+		return c.JSON(&account)
 	})
 
 	app.Get("/account/:id", func(c *fiber.Ctx) error {
