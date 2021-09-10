@@ -54,9 +54,9 @@ func main() {
 		return c.JSON(res)
 	})
 
-	app.Get("/account", func(c *fiber.Ctx) error {
+	app.Get("/account/:id", func(c *fiber.Ctx) error {
 		var acc model.Account
-		sel := "SELECT * from accounts where id = 4"
+		sel := "SELECT * from accounts where id = " + c.Params("id")
 		err := db.QueryRow(sel).Scan(&acc.ID, &acc.Firstname, &acc.Lastname, &acc.Email, &acc.Password, &acc.Mobile, &acc.Street, &acc.Zipcode, &acc.City, &acc.Country)
 		if err != nil{
 			log.Fatal(err)
