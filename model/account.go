@@ -1,6 +1,7 @@
 package model
 
 type Account struct {
+	ID        string `json:"id"`
 	Firstname string `json:"firstname" validate:"required,min=2,max=100"`
 	Lastname  string `json:"lastname" validate:"required,min=2,max=100"`
 	Email     string `json:"email" validate:"required,email"`
