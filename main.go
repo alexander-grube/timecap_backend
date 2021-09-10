@@ -55,12 +55,13 @@ func main() {
 	})
 
 	app.Get("/account", func(c *fiber.Ctx) error {
+		var acc model.Account
 		sel := "SELECT * from accounts"
-		res, err := db.Exec(sel)
+		err := db.QueryRow(sel).Scan(&acc)
 		if err != nil{
 			log.Fatal(err)
 		}
-		return c.JSON(res)
+		return c.JSON(acc)
 	})
 
 	app.Listen(PORT)
