@@ -42,7 +42,7 @@ func main() {
 	account := model.Account{
 		Firstname: "John",
 		Lastname:  "Doe",
-		Email:     "john.doe@example.com",
+		Email:     "john.doe@example2.com",
 		Password:  "johnIsADoe",
 		Mobile:    "555-12345678",
 		Street:    "John Doe Street",
