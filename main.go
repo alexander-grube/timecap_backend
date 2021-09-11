@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -40,19 +41,12 @@ func main() {
 		return c.JSON(ticket)
 	})
 
-	account := model.Account{
-		Firstname: "John",
-		Lastname:  "Doe",
-		Email:     "john.doe@example4.com",
-		Password:  "johnIsADoe",
-		Mobile:    "555-12345678",
-		Street:    "John Doe Street",
-		Zipcode:   "12345",
-		City:      "John Doe City",
-		Country:   "Canada",
-	}
-
 	app.Post("/account", func(c *fiber.Ctx) error {
+		var account model.Account
+	    err = json.Unmarshal(c.Body(), &account)
+		if err != nil {
+			log.Fatal("Could not parse account JSON", err)
+		}
 		createdAccount := db.Create(&account)
 		err = createdAccount.Error
 		if err != nil {
@@ -65,9 +59,19 @@ func main() {
 		var account model.Account
 		db.First(&account, c.Params("id"))
 		if account.Email == "" {
-			return c.Status(http.StatusNotFound).SendString("Account not found")
+			return c.Status(http.StatusNotFound).SendString("Account not found. Could not get.")
 		}
 		return c.JSON(account)
+	})
+
+	app.Post("/account/delete/:id", func (c *fiber.Ctx) error {
+		var account model.Account
+		db.First(&account, c.Params("id"))
+		db.Delete(&account)
+		if account.Email == "" {
+			return c.Status(http.StatusNotFound).SendString("Account not found. Could not delete.")
+		}
+		return c.JSON(&account)
 	})
 
 	app.Listen(PORT)
