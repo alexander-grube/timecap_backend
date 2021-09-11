@@ -8,6 +8,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/go-playground/validator/v10"
 	model "github.com/spctr-cc/backend-bugtrack/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -43,9 +44,14 @@ func main() {
 
 	app.Post("/account", func(c *fiber.Ctx) error {
 		var account model.Account
+		validate := validator.New()
 	    err = json.Unmarshal(c.Body(), &account)
 		if err != nil {
 			log.Fatal("Could not parse account JSON", err)
+		}
+		err = validate.Struct(&account)
+		if err != nil {
+			log.Fatal("No valid account information", err)
 		}
 		createdAccount := db.Create(&account)
 		err = createdAccount.Error
