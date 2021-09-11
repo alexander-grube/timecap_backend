@@ -42,7 +42,7 @@ func main() {
 	account := model.Account{
 		Firstname: "John",
 		Lastname:  "Doe",
-		Email:     "john.doe@example3.com",
+		Email:     "john.doe@example4.com",
 		Password:  "johnIsADoe",
 		Mobile:    "555-12345678",
 		Street:    "John Doe Street",
@@ -64,7 +64,7 @@ func main() {
 		var account model.Account
 		db.First(&account, c.Params("id"))
 		if account.Email == "" {
-			return c.Status(http.StatusInternalServerError).SendString("Account does not exist")
+			return c.Status(http.StatusNotFound).SendString("Account not found")
 		}
 		return c.JSON(account)
 	})
