@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -24,10 +25,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println("Database Connected")
+	fmt.Println("Database Connected")
 	db.AutoMigrate(&model.Account{})
 	db.AutoMigrate(&model.Ticket{})
-	log.Println("Database Migrated")
+	fmt.Println("Database Migrated")
 
 	app := fiber.New()
 
