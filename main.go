@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/http"
 	"os"
 	"time"
 
@@ -14,8 +15,8 @@ import (
 
 var (
 	PORT string = ":" + os.Getenv("PORT")
-	db *gorm.DB
-	err error
+	db   *gorm.DB
+	err  error
 )
 
 func main() {
@@ -26,7 +27,7 @@ func main() {
 	log.Println("Database Connected")
 	db.AutoMigrate(&model.Account{})
 	db.AutoMigrate(&model.Ticket{})
-	log.Println("Database Migrated")	
+	log.Println("Database Migrated")
 
 	app := fiber.New()
 
@@ -54,7 +55,7 @@ func main() {
 		createdAccount := db.Create(&account)
 		err = createdAccount.Error
 		if err != nil {
-			return c.JSON(err)
+			return c.Status(http.StatusInternalServerError).JSON(err)
 		}
 		return c.JSON(&account)
 	})
@@ -62,6 +63,9 @@ func main() {
 	app.Get("/account/:id", func(c *fiber.Ctx) error {
 		var account model.Account
 		db.First(&account, c.Params("id"))
+		if account.Email == "" {
+			return c.Status(http.StatusInternalServerError).SendString("Account does not exist")
+		}
 		return c.JSON(account)
 	})
 
