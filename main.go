@@ -14,6 +14,7 @@ import (
 	"gorm.io/gorm"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
 var (
@@ -33,6 +34,8 @@ func main() {
 	fmt.Println("Database Migrated")
 
 	app := fiber.New()
+
+	app.Use(logger.New())
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		ticket := model.Ticket{
