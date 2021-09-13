@@ -1,6 +1,9 @@
 package handler
 
 import (
+	"errors"
+	"strings"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/spctr-cc/backend-bugtrack/model"
 )
@@ -28,6 +31,10 @@ func (r *accountRegisterRequest) bind(c *fiber.Ctx, a *model.Account, v *Validat
 
 	if err := v.Validate(r); err != nil {
 		return err
+	}
+
+	if strings.TrimSpace(r.Account.Firstname) == "" {
+		return errors.New("firstname is empty")
 	}
 
 	a.Firstname = r.Account.Firstname
