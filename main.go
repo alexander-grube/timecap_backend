@@ -9,9 +9,8 @@ import (
 	"time"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/spctr-cc/backend-bugtrack/db"
 	model "github.com/spctr-cc/backend-bugtrack/model"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -19,18 +18,19 @@ import (
 
 var (
 	PORT string = ":" + os.Getenv("PORT")
-	db   *gorm.DB
 	err  error
 )
 
 func main() {
-	db, err = gorm.Open(postgres.Open(os.Getenv("DATABASE_URL")), &gorm.Config{})
-	if err != nil {
-		log.Fatal(err)
-	}
+	// db, err = gorm.Open(postgres.Open(os.Getenv("DATABASE_URL")), &gorm.Config{})
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	db := db.New()
 	fmt.Println("Database Connected")
-	db.AutoMigrate(&model.Account{})
-	db.AutoMigrate(&model.Ticket{})
+	db.AutoMigrate()
+	// db.AutoMigrate(&model.Account{})
+	// db.AutoMigrate(&model.Ticket{})
 	fmt.Println("Database Migrated")
 
 	app := fiber.New()
@@ -48,7 +48,7 @@ func main() {
 	app.Post("/account", func(c *fiber.Ctx) error {
 		var account model.Account
 		validate := validator.New()
-	    err = json.Unmarshal(c.Body(), &account)
+		err = json.Unmarshal(c.Body(), &account)
 		if err != nil {
 			log.Fatal("Could not parse account JSON", err)
 		}
@@ -73,7 +73,7 @@ func main() {
 		return c.JSON(account)
 	})
 
-	app.Post("/account/delete/:id", func (c *fiber.Ctx) error {
+	app.Post("/account/delete/:id", func(c *fiber.Ctx) error {
 		var account model.Account
 		db.First(&account, c.Params("id"))
 		db.Delete(&account)
