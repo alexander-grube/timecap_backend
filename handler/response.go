@@ -15,7 +15,7 @@ type accountReponse struct {
 	} `json:"account"`
 }
 
-func NewAccountReponse(a *model.Account) *accountReponse {
+func NewAccountResponse(a *model.Account) *accountReponse {
 	r := new(accountReponse)
 	r.Account.Firstname = a.Firstname
 	r.Account.Lastname = a.Lastname

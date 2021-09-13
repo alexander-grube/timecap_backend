@@ -10,7 +10,9 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/spctr-cc/backend-bugtrack/db"
+	"github.com/spctr-cc/backend-bugtrack/handler"
 	model "github.com/spctr-cc/backend-bugtrack/model"
+	"github.com/spctr-cc/backend-bugtrack/store"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -36,6 +38,12 @@ func main() {
 	app := fiber.New()
 
 	app.Use(logger.New())
+
+	as := store.NewAccountStore(db)
+
+	h := handler.NewHandler(as)
+
+	h.Register(app)
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		ticket := model.Ticket{

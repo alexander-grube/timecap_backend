@@ -9,4 +9,5 @@ func (h *Handler) Register(r *fiber.App) {
 
 	account := v1.Group("/account")
 	account.Post("", h.SignUp)
+	account.Get("/:id", h.CurrentAccount)
 }
