@@ -1,6 +1,11 @@
 package model
 
-import "gorm.io/gorm"
+import (
+	"errors"
+
+	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm"
+)
 
 type Account struct {
 	gorm.Model
@@ -13,4 +18,17 @@ type Account struct {
 	Zipcode   string `json:"zipcode" validate:"required"`
 	City      string `json:"city" validate:"required"`
 	Country   string `json:"country" validate:"required"`
+}
+
+func (a *Account) HashPassword(plain string) (string, error) {
+	if len(plain) == 0 {
+		return "", errors.New("password should not be empty")
+	}
+	h, err := bcrypt.GenerateFromPassword([]byte(plain), bcrypt.DefaultCost)
+	return string(h), err
+}
+
+func (a *Account) CheckPassword(plain string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(a.Password), []byte(plain))
+	return err == nil
 }
