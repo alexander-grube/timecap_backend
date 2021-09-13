@@ -8,7 +8,7 @@ import (
 
 type accountRegisterRequest struct {
 	Account struct {
-		Firstname string `json:"firstname" validate:"required,min=2,max=100,nonzero"`
+		Firstname string `json:"firstname" validate:"min=2,max=100,nonzero"`
 		Lastname  string `json:"lastname" validate:"required,min=2,max=100"`
 		Email     string `json:"email" validate:"required,email"`
 		Password  string `json:"password" validate:"required"`
