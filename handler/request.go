@@ -3,12 +3,11 @@ package handler
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/spctr-cc/backend-bugtrack/model"
-	"gopkg.in/validator.v2"
 )
 
 type accountRegisterRequest struct {
 	Account struct {
-		Firstname string `json:"firstname" validate:"required,nonzero"`
+		Firstname string `json:"firstname" validate:"required,min=2,max=100"`
 		Lastname  string `json:"lastname" validate:"required,min=2,max=100"`
 		Email     string `json:"email" validate:"required,email"`
 		Password  string `json:"password" validate:"required"`
@@ -28,10 +27,6 @@ func (r *accountRegisterRequest) bind(c *fiber.Ctx, a *model.Account, v *Validat
 	}
 
 	if err := v.Validate(r); err != nil {
-		return err
-	}
-
-	if err := validator.Validate(r); err != nil {
 		return err
 	}
 
