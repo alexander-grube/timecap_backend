@@ -63,5 +63,6 @@ func userIDFromToken(c *fiber.Ctx) uint {
 	}
 	account = l.(*jwtware.Token)
 	id := uint(((account.Claims.(jwtware.MapClaims)["id"]).(float64)))
+	fmt.Print("IM DOING THIS")
 	return id
 }
