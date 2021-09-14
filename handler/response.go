@@ -15,7 +15,7 @@ type accountResponse struct {
 		Zipcode   string `json:"zipcode"`
 		City      string `json:"city"`
 		Country   string `json:"country"`
-		Token    string  `json:"token"`
+		Token     string `json:"token"`
 	} `json:"account"`
 }
 
@@ -29,6 +29,6 @@ func newAccountResponse(a *model.Account) *accountResponse {
 	r.Account.Zipcode = a.Zipcode
 	r.Account.City = a.City
 	r.Account.Country = a.Country
-    r.Account.Token = utils.GenerateJWT(a.ID)
+	r.Account.Token = utils.GenerateJWT(a.ID)
 	return r
 }

@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"os"
 	"time"
 
@@ -14,6 +15,7 @@ func GenerateJWT(id uint) string {
 	claims := token.Claims.(jwt.MapClaims)
 	claims["id"] = id
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
+	fmt.Println(JWTSecret)
 	t, _ := token.SignedString(JWTSecret)
 	return t
 }
