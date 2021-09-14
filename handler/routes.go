@@ -11,7 +11,6 @@ func (h *Handler) Register(r *fiber.App) {
 	jwtMiddleware := jwtware.New(
 		jwtware.Config{
 			SigningKey: utils.JWTSecret,
-			AuthScheme: "Token",
 		})
 
 	guestUsers := v1.Group("/users")
