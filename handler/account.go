@@ -59,10 +59,11 @@ func userIDFromToken(c *fiber.Ctx) uint {
 	var account *jwtware.Token
 	l := c.Locals("account")
 	if l == nil {
+		fmt.Println("LOCALS IS NIL")
 		return 0
 	}
 	account = l.(*jwtware.Token)
 	id := uint(((account.Claims.(jwtware.MapClaims)["id"]).(float64)))
-	fmt.Print("IM DOING THIS")
+	fmt.Println("IM DOING THIS")
 	return id
 }
