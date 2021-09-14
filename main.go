@@ -28,9 +28,9 @@ func main() {
 	// if err != nil {
 	// 	log.Fatal(err)
 	// }
-	db := db.New()
+	d := db.New()
 	fmt.Println("Database Connected")
-	db.AutoMigrate(db)
+	db.AutoMigrate(d)
 	// db.AutoMigrate(&model.Account{})
 	// db.AutoMigrate(&model.Ticket{})
 	fmt.Println("Database Migrated")
@@ -39,7 +39,7 @@ func main() {
 
 	app.Use(logger.New())
 
-	as := store.NewAccountStore(db)
+	as := store.NewAccountStore(d)
 
 	h := handler.NewHandler(as)
 
@@ -64,7 +64,7 @@ func main() {
 		if err != nil {
 			log.Fatal("No valid account information", err)
 		}
-		createdAccount := db.Create(&account)
+		createdAccount := d.Create(&account)
 		err = createdAccount.Error
 		if err != nil {
 			return c.Status(http.StatusInternalServerError).JSON(err)
@@ -74,7 +74,7 @@ func main() {
 
 	app.Get("/account/:id", func(c *fiber.Ctx) error {
 		var account model.Account
-		db.First(&account, c.Params("id"))
+		d.First(&account, c.Params("id"))
 		if account.Email == "" {
 			return c.Status(http.StatusNotFound).SendString("Account not found. Could not get.")
 		}
@@ -83,8 +83,8 @@ func main() {
 
 	app.Post("/account/delete/:id", func(c *fiber.Ctx) error {
 		var account model.Account
-		db.First(&account, c.Params("id"))
-		db.Delete(&account)
+		d.First(&account, c.Params("id"))
+		d.Delete(&account)
 		if account.Email == "" {
 			return c.Status(http.StatusNotFound).SendString("Account not found. Could not delete.")
 		}
