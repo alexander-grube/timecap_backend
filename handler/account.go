@@ -57,12 +57,11 @@ func (h *Handler) CurrentAccount(c *fiber.Ctx) error {
 
 func userIDFromToken(c *fiber.Ctx) uint {
 	var account *jwtware.Token
-	var l interface{}
-	// l := c.Locals("account")
-	// if l == nil {
-	// 	fmt.Println("LOCALS IS NIL")
-	// 	return 0
-	// }
+	l := c.Locals("user")
+	if l == nil {
+		fmt.Println("LOCALS IS NIL")
+		return 0
+	}
 	account = l.(*jwtware.Token)
 	id := uint(((account.Claims.(jwtware.MapClaims)["id"]).(float64)))
 	fmt.Println("IM DOING THIS")
