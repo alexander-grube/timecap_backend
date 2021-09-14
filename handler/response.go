@@ -1,8 +1,11 @@
 package handler
 
-import "github.com/spctr-cc/backend-bugtrack/model"
+import (
+	"github.com/spctr-cc/backend-bugtrack/model"
+	"github.com/spctr-cc/backend-bugtrack/utils"
+)
 
-type accountReponse struct {
+type accountResponse struct {
 	Account struct {
 		Firstname string `json:"firstname"`
 		Lastname  string `json:"lastname"`
@@ -12,11 +15,12 @@ type accountReponse struct {
 		Zipcode   string `json:"zipcode"`
 		City      string `json:"city"`
 		Country   string `json:"country"`
+		Token    string  `json:"token"`
 	} `json:"account"`
 }
 
-func NewAccountResponse(a *model.Account) *accountReponse {
-	r := new(accountReponse)
+func newAccountResponse(a *model.Account) *accountResponse {
+	r := new(accountResponse)
 	r.Account.Firstname = a.Firstname
 	r.Account.Lastname = a.Lastname
 	r.Account.Email = a.Email
@@ -25,6 +29,6 @@ func NewAccountResponse(a *model.Account) *accountReponse {
 	r.Account.Zipcode = a.Zipcode
 	r.Account.City = a.City
 	r.Account.Country = a.Country
-	// JWT TOKEN LATER
+    r.Account.Token = utils.GenerateJWT(a.ID)
 	return r
 }

@@ -52,3 +52,21 @@ func (r *accountRegisterRequest) bind(c *fiber.Ctx, a *model.Account, v *Validat
 	a.Country = r.Account.Country
 	return nil
 }
+
+type accountLoginRequest struct {
+	Account struct {
+		Email    string `json:"email" validate:"required,email"`
+		Password string `json:"password" validate:"required"`
+	} `json:"account"`
+}
+
+func (r *accountLoginRequest) bind(c *fiber.Ctx, v *Validator) error {
+	if err := c.BodyParser(r); err != nil {
+		return err
+	}
+
+	if err := v.Validate(r); err != nil {
+		return err
+	}
+	return nil
+}
