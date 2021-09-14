@@ -30,7 +30,7 @@ func main() {
 	// }
 	db := db.New()
 	fmt.Println("Database Connected")
-	db.AutoMigrate()
+	db.AutoMigrate(db)
 	// db.AutoMigrate(&model.Account{})
 	// db.AutoMigrate(&model.Ticket{})
 	fmt.Println("Database Migrated")
