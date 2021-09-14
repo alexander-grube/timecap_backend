@@ -56,12 +56,12 @@ func (h *Handler) CurrentAccount(c *fiber.Ctx) error {
 }
 
 func userIDFromToken(c *fiber.Ctx) uint {
-	var user *jwtware.Token
-	l := c.Locals("user")
+	var account *jwtware.Token
+	l := c.Locals("account")
 	if l == nil {
 		return 0
 	}
-	user = l.(*jwtware.Token)
-	id := uint(((user.Claims.(jwtware.MapClaims)["id"]).(float64)))
+	account = l.(*jwtware.Token)
+	id := uint(((account.Claims.(jwtware.MapClaims)["id"]).(float64)))
 	return id
 }
