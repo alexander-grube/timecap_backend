@@ -13,11 +13,6 @@ type Account struct {
 	Lastname  string
 	Email     string `gorm:"typevarchar(100);uniqueIndex"`
 	Password  string
-	Mobile    string
-	Street    string
-	Zipcode   string
-	City      string
-	Country   string
 }
 
 func (a *Account) HashPassword(plain string) (string, error) {
