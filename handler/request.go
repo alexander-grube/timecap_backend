@@ -40,6 +40,7 @@ func (r *accountRegisterRequest) bind(c *fiber.Ctx, a *model.Account, v *Validat
 		return err
 	}
 	a.Password = h
+	a.Role = model.Admin
 	return nil
 }
 
