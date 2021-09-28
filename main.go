@@ -25,15 +25,10 @@ var (
 )
 
 func main() {
-	// db, err = gorm.Open(postgres.Open(os.Getenv("DATABASE_URL")), &gorm.Config{})
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	
 	d := db.New()
 	fmt.Println("Database Connected")
 	db.AutoMigrate(d)
-	// db.AutoMigrate(&model.Account{})
-	// db.AutoMigrate(&model.Ticket{})
 	fmt.Println("Database Migrated")
 
 	app := fiber.New()
