@@ -5,27 +5,27 @@ import "gorm.io/gorm"
 type TicketStatus int
 
 const (
-	New        TicketStatus = 0
-	Open       TicketStatus = 1
-	InProgress TicketStatus = 2
-	Resolved   TicketStatus = 3
+	New        TicketStatus = 1
+	Open       TicketStatus = 2
+	InProgress TicketStatus = 3
+	Resolved   TicketStatus = 4
 )
 
 type TicketType int
 
 const (
-	Other   TicketType = 0
-	Bug     TicketType = 1
-	Feature TicketType = 2
+	Other   TicketType = 1
+	Bug     TicketType = 2
+	Feature TicketType = 3
 )
 
 type TicketPriority int
 
 const (
-	None   TicketPriority = 0
-	Low    TicketPriority = 1
-	Medium TicketPriority = 2
-	High   TicketPriority = 3
+	None   TicketPriority = 1
+	Low    TicketPriority = 2
+	Medium TicketPriority = 3
+	High   TicketPriority = 4
 )
 
 type Ticket struct {

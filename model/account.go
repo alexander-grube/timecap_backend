@@ -10,10 +10,10 @@ import (
 type AccountRole int
 
 const (
-	Admin     AccountRole = 0
-	Developer AccountRole = 1
-	Manager   AccountRole = 2
-	User      AccountRole = 3
+	Admin     AccountRole = 1
+	Developer AccountRole = 2
+	Manager   AccountRole = 3
+	User      AccountRole = 4
 )
 
 type Account struct {
