@@ -24,3 +24,23 @@ func newAccountResponse(a *model.Account) *accountResponse {
 	r.Account.Token = utils.GenerateJWT(a.ID)
 	return r
 }
+
+type ticketResponse struct {
+	Ticket struct {
+		Topic       string `json:"topic"`
+		Description string `json:"description"`
+		Priority    int    `json:"priority"`
+		Type        int    `json:"type"`
+		Status      int    `json:"status"`
+	}
+}
+
+func newTicketResponse(t *model.Ticket) *ticketResponse {
+	r := new(ticketResponse)
+	r.Ticket.Topic = t.Topic
+	r.Ticket.Description = t.Description
+	r.Ticket.Priority = int(t.Priority)
+	r.Ticket.Type = int(t.Type)
+	r.Ticket.Status = int(t.Status)
+	return r
+}

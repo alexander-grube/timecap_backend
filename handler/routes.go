@@ -18,4 +18,6 @@ func (h *Handler) Register(r *fiber.App) {
 	guestUsers.Post("", h.SignUp)
 	account := v1.Group("/account", jwtMiddleware)
 	account.Get("", h.CurrentAccount)
+	ticket := v1.Group("/ticket")
+	ticket.Post("/new", h.CreateTicket)
 }

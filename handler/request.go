@@ -64,3 +64,31 @@ func (r *accountLoginRequest) bind(c *fiber.Ctx, v *Validator) error {
 	}
 	return nil
 }
+
+type ticketCreateRequest struct {
+	Ticket struct {
+		Topic       string `json:"topic" validate:"required"`
+		Description string `json:"description" validate:"required"`
+		Priority    int    `json:"priority" validate:"required"`
+		Type        int    `json:"type" validate:"required"`
+		Status      int    `json:"status" validate:"required"`
+	}
+}
+
+func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator) error {
+	if err := c.BodyParser(r); err != nil {
+		return err
+	}
+	if err := v.Validate(r); err != nil {
+		return err
+	}
+
+	t.Topic = r.Ticket.Topic
+	t.Description = r.Ticket.Description
+	t.Priority = model.TicketPriority(r.Ticket.Priority)
+	t.Type = model.TicketType(r.Ticket.Type)
+	t.Status = model.TicketStatus(r.Ticket.Status)
+
+	return nil
+
+}

@@ -44,7 +44,9 @@ func main() {
 
 	as := store.NewAccountStore(d)
 
-	h := handler.NewHandler(as)
+	ts := store.NewTicketStore(d)
+
+	h := handler.NewHandler(as, ts)
 
 	h.Register(app)
 
