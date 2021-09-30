@@ -2,7 +2,7 @@ package model
 
 import "gorm.io/gorm"
 
-type TicketStatus int
+type TicketStatus uint
 
 const (
 	New        TicketStatus = 1
@@ -11,7 +11,7 @@ const (
 	Resolved   TicketStatus = 4
 )
 
-type TicketType int
+type TicketType uint
 
 const (
 	Other   TicketType = 1
@@ -19,7 +19,7 @@ const (
 	Feature TicketType = 3
 )
 
-type TicketPriority int
+type TicketPriority uint
 
 const (
 	None   TicketPriority = 1

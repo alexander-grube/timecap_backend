@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type AccountRole int
+type AccountRole uint
 
 const (
 	Admin     AccountRole = 1

@@ -69,9 +69,9 @@ type ticketCreateRequest struct {
 	Ticket struct {
 		Topic       string `json:"topic" validate:"required"`
 		Description string `json:"description" validate:"required"`
-		Priority    int    `json:"priority" validate:"required"`
-		Type        int    `json:"type" validate:"required"`
-		Status      int    `json:"status" validate:"required"`
+		Priority    uint   `json:"priority" validate:"required"`
+		Type        uint   `json:"type" validate:"required"`
+		Status      uint   `json:"status" validate:"required"`
 	} `json:"ticket"`
 }
 
@@ -88,6 +88,11 @@ func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator) 
 	t.Priority = model.TicketPriority(r.Ticket.Priority)
 	t.Type = model.TicketType(r.Ticket.Type)
 	t.Status = model.TicketStatus(r.Ticket.Status)
+
+	userID := userIDFromToken(c)
+	if userID < uint(model.User) {
+		t.AccountID = int(userID)
+	}
 
 	return nil
 

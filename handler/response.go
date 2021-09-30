@@ -29,9 +29,10 @@ type ticketResponse struct {
 	Ticket struct {
 		Topic       string `json:"topic"`
 		Description string `json:"description"`
-		Priority    int    `json:"priority"`
-		Type        int    `json:"type"`
-		Status      int    `json:"status"`
+		Priority    uint   `json:"priority"`
+		Type        uint   `json:"type"`
+		Status      uint   `json:"status"`
+		AccountID   int    `json:"accountID"`
 	} `json:"ticket"`
 }
 
@@ -39,8 +40,9 @@ func newTicketResponse(t *model.Ticket) *ticketResponse {
 	r := new(ticketResponse)
 	r.Ticket.Topic = t.Topic
 	r.Ticket.Description = t.Description
-	r.Ticket.Priority = int(t.Priority)
-	r.Ticket.Type = int(t.Type)
-	r.Ticket.Status = int(t.Status)
+	r.Ticket.Priority = uint(t.Priority)
+	r.Ticket.Type = uint(t.Type)
+	r.Ticket.Status = uint(t.Status)
+	r.Ticket.AccountID = t.AccountID
 	return r
 }
