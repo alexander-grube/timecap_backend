@@ -72,7 +72,7 @@ type ticketCreateRequest struct {
 		Priority    int    `json:"priority" validate:"required"`
 		Type        int    `json:"type" validate:"required"`
 		Status      int    `json:"status" validate:"required"`
-	}
+	} `json:"ticket"`
 }
 
 func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator) error {

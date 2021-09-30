@@ -32,7 +32,7 @@ type ticketResponse struct {
 		Priority    int    `json:"priority"`
 		Type        int    `json:"type"`
 		Status      int    `json:"status"`
-	}
+	} `json:"ticket"`
 }
 
 func newTicketResponse(t *model.Ticket) *ticketResponse {
