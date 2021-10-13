@@ -35,6 +35,5 @@ type Ticket struct {
 	Priority    TicketPriority
 	Type        TicketType
 	Status      TicketStatus
-	Timestamp   int64
 	AccountID   int
 }
