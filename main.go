@@ -15,7 +15,6 @@ import (
 
 var (
 	PORT string = ":" + os.Getenv("PORT")
-	err  error
 )
 
 func main() {
