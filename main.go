@@ -1,17 +1,11 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"log"
-	"net/http"
 	"os"
-	"time"
 
-	"github.com/go-playground/validator/v10"
 	"github.com/spctr-cc/backend-bugtrack/db"
 	"github.com/spctr-cc/backend-bugtrack/handler"
-	model "github.com/spctr-cc/backend-bugtrack/model"
 	"github.com/spctr-cc/backend-bugtrack/store"
 
 	"github.com/gofiber/fiber/v2"
@@ -44,52 +38,6 @@ func main() {
 	h := handler.NewHandler(as, ts)
 
 	h.Register(app)
-
-	app.Get("/", func(c *fiber.Ctx) error {
-		ticket := model.Ticket{
-			Topic:     "Test",
-			Timestamp: time.Now().UnixMilli(),
-		}
-		return c.JSON(ticket)
-	})
-
-	app.Post("/account", func(c *fiber.Ctx) error {
-		var account model.Account
-		validate := validator.New()
-		err = json.Unmarshal(c.Body(), &account)
-		if err != nil {
-			log.Fatal("Could not parse account JSON", err)
-		}
-		err = validate.Struct(&account)
-		if err != nil {
-			log.Fatal("No valid account information", err)
-		}
-		createdAccount := d.Create(&account)
-		err = createdAccount.Error
-		if err != nil {
-			return c.Status(http.StatusInternalServerError).JSON(err)
-		}
-		return c.JSON(&account)
-	})
-
-	app.Get("/account/:id", func(c *fiber.Ctx) error {
-		var account model.Account
-		d.First(&account, c.Params("id"))
-		if account.Email == "" {
-			return c.Status(http.StatusNotFound).SendString("Account not found. Could not get.")
-		}
-		return c.JSON(account)
-	})
-
-	app.Post("/account/delete/:id", func(c *fiber.Ctx) error {
-		var account model.Account
-		d.First(&account, c.Params("id"))
-		d.Delete(&account)
-		if account.Email == "" {
-			return c.Status(http.StatusNotFound).SendString("Account not found. Could not delete.")
-		}
-		return c.JSON(&account)
-	})
 
 	app.Listen(PORT)
 }
