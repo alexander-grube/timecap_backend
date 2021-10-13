@@ -90,9 +90,11 @@ func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator) 
 	t.Status = model.TicketStatus(r.Ticket.Status)
 
 	userID := userIDFromToken(c)
-	if userID < uint(model.User) {
-		t.AccountID = int(userID)
+	if userID >= uint(model.User) {
+		return errors.New("User not allowed to create tickets")
 	}
+
+	t.AccountID = int(userID)
 
 	return nil
 
