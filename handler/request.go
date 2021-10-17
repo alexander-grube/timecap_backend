@@ -92,7 +92,7 @@ func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator, 
 
 	userID := userIDFromToken(c)
 
-	account, err := as.GetByID(userIDFromToken(c))
+	account, err := as.GetByID(userID)
 
 	if err != nil {
 		return err
