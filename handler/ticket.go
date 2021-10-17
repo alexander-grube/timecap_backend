@@ -12,7 +12,7 @@ func (h *Handler) CreateTicket(c *fiber.Ctx) error {
 	var t model.Ticket
 	req := ticketCreateRequest{}
 
-	if err := req.bind(c, &t, h.validator); err != nil {
+	if err := req.bind(c, &t, h.validator, h.accountStore); err != nil {
 		return c.Status(http.StatusUnprocessableEntity).JSON(utils.NewError(err))
 	}
 

@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/spctr-cc/backend-bugtrack/account"
 	"github.com/spctr-cc/backend-bugtrack/model"
 )
 
@@ -75,7 +76,7 @@ type ticketCreateRequest struct {
 	} `json:"ticket"`
 }
 
-func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator) error {
+func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator, as account.Store) error {
 	if err := c.BodyParser(r); err != nil {
 		return err
 	}
@@ -90,7 +91,14 @@ func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator) 
 	t.Status = model.TicketStatus(r.Ticket.Status)
 
 	userID := userIDFromToken(c)
-	if userID >= uint(model.User) {
+
+	account, err := as.GetByID(userIDFromToken(c))
+
+	if err != nil {
+		return err
+	}
+
+	if uint(account.Role) >= uint(model.User) {
 		return errors.New("user not allowed to create tickets")
 	}
 
