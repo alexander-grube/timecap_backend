@@ -22,10 +22,9 @@ const (
 type TicketPriority uint
 
 const (
-	None   TicketPriority = 1
-	Low    TicketPriority = 2
-	Medium TicketPriority = 3
-	High   TicketPriority = 4
+	Low    TicketPriority = 1
+	Medium TicketPriority = 2
+	High   TicketPriority = 3
 )
 
 type Ticket struct {
