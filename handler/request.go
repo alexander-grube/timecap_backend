@@ -67,15 +67,29 @@ func (r* accountUpdateRequest) bind(c *fiber.Ctx, a *model.Account, v *Validator
 		return err
 	}
 
-	a.Firstname = r.Account.Firstname
-	a.Lastname = r.Account.Lastname
-	a.Email = r.Account.Email
-	h, err := a.HashPassword(r.Account.Password)
-	if err != nil {
-		return err
+	if strings.TrimSpace(r.Account.Firstname) != "" {
+		a.Firstname = r.Account.Firstname
 	}
-	a.Password = h
-	a.Role = model.AccountRole(r.Account.Role)
+
+	if strings.TrimSpace(r.Account.Lastname) != "" {
+		a.Lastname = r.Account.Lastname
+	}
+
+	if strings.TrimSpace(r.Account.Email) != "" {
+		a.Email = r.Account.Email
+	}
+
+	if strings.TrimSpace(r.Account.Password) != "" {
+		h, err := a.HashPassword(r.Account.Password)
+		if err != nil {
+			return err
+		}
+		a.Password = h
+	}
+
+	if r.Account.Role != 0 {
+		a.Role = model.AccountRole(r.Account.Role)
+	}
 	return nil
 }
 
