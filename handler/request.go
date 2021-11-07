@@ -67,10 +67,6 @@ func (r* accountUpdateRequest) bind(c *fiber.Ctx, a *model.Account, v *Validator
 		return err
 	}
 
-	if strings.TrimSpace(r.Account.Firstname) == "" {
-		return errors.New("firstname is empty")
-	}
-
 	a.Firstname = r.Account.Firstname
 	a.Lastname = r.Account.Lastname
 	a.Email = r.Account.Email
