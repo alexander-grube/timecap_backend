@@ -56,18 +56,21 @@ func (h *Handler) CurrentAccount(c *fiber.Ctx) error {
 }
 
 func (h *Handler) UpdateAccount(c *fiber.Ctx) error {
-	var a model.Account
+	a, err := h.accountStore.GetByID(userIDFromToken(c))
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(utils.NewError(err))
+	}
 	req := accountUpdateRequest{}
 
-	if err := req.bind(c, &a, h.validator); err != nil {
+	if err := req.bind(c, a, h.validator); err != nil {
 		return c.Status(http.StatusUnprocessableEntity).JSON(utils.NewError(err))
 	}
 
-	if err := h.accountStore.Update(&a); err != nil {
+	if err := h.accountStore.Update(a); err != nil {
 		return c.Status(http.StatusUnprocessableEntity).JSON(utils.NewError(err))
 	}
 
-	return c.Status(http.StatusOK).JSON(newAccountResponse(&a))
+	return c.Status(http.StatusOK).JSON(newAccountResponse(a))
 }
 
 func userIDFromToken(c *fiber.Ctx) uint {
