@@ -70,7 +70,7 @@ func (h *Handler) UpdateAccount(c *fiber.Ctx) error {
 		return c.Status(http.StatusUnprocessableEntity).JSON(utils.NewError(err))
 	}
 
-	return c.Status(http.StatusOK).JSON(newAccountResponse(a))
+	return c.Status(http.StatusOK).JSON(newAccountUpdateResponse(a))
 }
 
 func userIDFromToken(c *fiber.Ctx) uint {
