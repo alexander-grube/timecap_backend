@@ -44,3 +44,7 @@ func (as *AccountStore) Create(a *model.Account) (err error) {
 func (as *AccountStore) Update(a *model.Account) (err error) {
 	return as.db.Model(a).Updates(a).Error
 }
+
+func (as *AccountStore) Delete(a *model.Account) (err error) {
+	return as.db.Delete(a).Error
+}

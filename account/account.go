@@ -9,4 +9,5 @@ type Store interface {
 	GetByEmail(string) (*model.Account, error)
 	Create(*model.Account) error
 	Update(*model.Account) error
+	Delete(*model.Account) error
 }

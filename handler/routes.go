@@ -19,6 +19,7 @@ func (h *Handler) Register(r *fiber.App) {
 	account := v1.Group("/account", jwtMiddleware)
 	account.Get("", h.CurrentAccount)
 	account.Put("", h.UpdateAccount)
+	account.Delete("", h.DeleteAccount)
 	ticket := v1.Group("/ticket", jwtMiddleware)
 	ticket.Post("/new", h.CreateTicket)
 }

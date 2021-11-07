@@ -73,6 +73,20 @@ func (h *Handler) UpdateAccount(c *fiber.Ctx) error {
 	return c.Status(http.StatusOK).JSON(newAccountUpdateResponse(a))
 }
 
+func (h *Handler) DeleteAccount(c *fiber.Ctx) error {
+	a, err := h.accountStore.GetByID(userIDFromToken(c))
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(utils.NewError(err))
+	}
+	if a == nil {
+		return c.Status(http.StatusNotFound).JSON(utils.NotFound())
+	}
+	if err := h.accountStore.Delete(a); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(utils.NewError(err))
+	}
+	return c.Status(http.StatusOK).JSON(newAccountDeleteResponse(a))
+}
+
 func userIDFromToken(c *fiber.Ctx) uint {
 	var account *jwtware.Token
 	l := c.Locals("user")

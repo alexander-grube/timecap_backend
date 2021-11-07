@@ -43,6 +43,24 @@ func newAccountUpdateResponse(a *model.Account) *accountUpdateResponse {
 	return r
 }
 
+type accountDeleteResponse struct {
+	Account struct {
+		Firstname string            `json:"firstname"`
+		Lastname  string            `json:"lastname"`
+		Email     string            `json:"email"`
+		Role      model.AccountRole `json:"role"`
+	} `json:"account"`
+}
+
+func newAccountDeleteResponse(a *model.Account) *accountDeleteResponse {
+	r := new(accountDeleteResponse)
+	r.Account.Firstname = a.Firstname
+	r.Account.Lastname = a.Lastname
+	r.Account.Email = a.Email
+	r.Account.Role = a.Role
+	return r
+}
+
 type ticketResponse struct {
 	Ticket struct {
 		Topic       string `json:"topic"`

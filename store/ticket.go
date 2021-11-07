@@ -33,3 +33,7 @@ func (ts *TicketStore) Create(a *model.Ticket) (err error) {
 func (ts *TicketStore) Update(a *model.Ticket) (err error) {
 	return ts.db.Model(a).Updates(a).Error
 }
+
+func (ts *TicketStore) Delete(a *model.Ticket) (err error) {
+	return ts.db.Delete(a).Error
+}
