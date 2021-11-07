@@ -48,6 +48,41 @@ func (r *accountRegisterRequest) bind(c *fiber.Ctx, a *model.Account, v *Validat
 	return nil
 }
 
+type accountUpdateRequest struct {
+	Account struct {
+		Firstname string `json:"firstname"`
+		Lastname  string `json:"lastname"`
+		Email     string `json:"email"`
+		Password  string `json:"password"`
+		Role 	int    `json:"role"`
+	} `json:"account"`
+}
+
+func (r* accountUpdateRequest) bind(c *fiber.Ctx, a *model.Account, v *Validator) error {
+	if err := c.BodyParser(r); err != nil {
+		return err
+	}
+
+	if err := v.Validate(r); err != nil {
+		return err
+	}
+
+	if strings.TrimSpace(r.Account.Firstname) == "" {
+		return errors.New("firstname is empty")
+	}
+
+	a.Firstname = r.Account.Firstname
+	a.Lastname = r.Account.Lastname
+	a.Email = r.Account.Email
+	h, err := a.HashPassword(r.Account.Password)
+	if err != nil {
+		return err
+	}
+	a.Password = h
+	a.Role = model.AccountRole(r.Account.Role)
+	return nil
+}
+
 type accountLoginRequest struct {
 	Account struct {
 		Email    string `json:"email" validate:"required,email"`
