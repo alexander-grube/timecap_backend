@@ -11,6 +11,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/monitor"
 )
 
 var (
@@ -25,6 +26,8 @@ func main() {
 	fmt.Println("Database Migrated")
 
 	app := fiber.New()
+
+	app.Get("/dashboard", monitor.New())
 
 	app.Use(logger.New())
 
