@@ -19,7 +19,7 @@ func (ts *TicketStore) GetByID(id uint) (*model.Ticket, error) {
 	var a model.Ticket
 	if err := ts.db.First(&a, id).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			return nil, nil
+			return nil, err
 		}
 		return nil, err
 	}
