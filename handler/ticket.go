@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/spctr-cc/backend-bugtrack/model"
@@ -21,4 +22,37 @@ func (h *Handler) CreateTicket(c *fiber.Ctx) error {
 	}
 
 	return c.Status(http.StatusCreated).JSON(newTicketResponse(&t))
+}
+
+func (h *Handler) GetTicketByID(c *fiber.Ctx) error {
+	id := c.Params("id")
+	idUint, err := strconv.ParseUint(id, 10, 64)
+	if err != nil {
+		return c.Status(http.StatusUnprocessableEntity).JSON(utils.NewError(err))
+	}
+	t, err := h.ticketStore.GetByID(uint(idUint))
+	if err != nil {
+		return c.Status(http.StatusNotFound).JSON(utils.NewError(err))
+	}
+
+	return c.JSON(newTicketResponse(t))
+}
+
+func (h *Handler) GetTicketByUserID(c *fiber.Ctx) error {
+	userID := userIDFromToken(c)
+	t, err := h.ticketStore.GetByUserID(userID)
+	if err != nil {
+		return c.Status(http.StatusNotFound).JSON(utils.NewError(err))
+	}
+
+	return c.JSON(t)
+}
+
+func (h *Handler) GetAllTickets(c *fiber.Ctx) error {
+	t, err := h.ticketStore.GetAll()
+	if err != nil {
+		return c.Status(http.StatusNotFound).JSON(utils.NewError(err))
+	}
+
+	return c.JSON(t)
 }

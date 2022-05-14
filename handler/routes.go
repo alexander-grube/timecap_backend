@@ -20,6 +20,9 @@ func (h *Handler) Register(r *fiber.App) {
 	account.Get("", h.CurrentAccount)
 	account.Put("", h.UpdateAccount)
 	account.Delete("", h.DeleteAccount)
+	account.Get("/tickets", h.GetTicketByUserID)
 	ticket := v1.Group("/ticket", jwtMiddleware)
 	ticket.Post("/new", h.CreateTicket)
+	ticket.Get("/:id", h.GetTicketByID)
+	ticket.Get("", h.GetAllTickets)
 }
