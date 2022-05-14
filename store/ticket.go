@@ -28,7 +28,7 @@ func (ts *TicketStore) GetByID(id uint) (*model.Ticket, error) {
 
 func (ts *TicketStore) GetByUserID(userID uint) ([]*model.Ticket, error) {
 	var a []*model.Ticket
-	if err := ts.db.Where("user_id = ?", userID).Find(&a).Error; err != nil {
+	if err := ts.db.Where("account_id = ?", userID).Find(&a).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, nil
 		}
