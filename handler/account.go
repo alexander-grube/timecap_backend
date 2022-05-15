@@ -3,6 +3,7 @@ package handler
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 	jwtware "github.com/golang-jwt/jwt/v4"
@@ -53,6 +54,20 @@ func (h *Handler) CurrentAccount(c *fiber.Ctx) error {
 		return c.Status(http.StatusNotFound).JSON(utils.NotFound())
 	}
 	return c.Status(http.StatusOK).JSON(newAccountResponse(a))
+}
+
+func (h *Handler) GetByID (c *fiber.Ctx) error {
+	id := c.Params("id")
+	idUint, err := strconv.ParseUint(id, 10, 64)
+	if err != nil {
+		return c.Status(http.StatusUnprocessableEntity).JSON(utils.NewError(err))
+	}
+	a, err := h.accountStore.GetByID(uint(idUint))
+	if err != nil {
+		return c.Status(http.StatusNotFound).JSON(utils.NewError(err))
+	}
+
+	return c.JSON(newAccountResponse(a))
 }
 
 func (h *Handler) UpdateAccount(c *fiber.Ctx) error {

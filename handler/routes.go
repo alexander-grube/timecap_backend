@@ -18,6 +18,7 @@ func (h *Handler) Register(r *fiber.App) {
 	guestUsers.Post("", h.SignUp)
 	account := v1.Group("/account", jwtMiddleware)
 	account.Get("", h.CurrentAccount)
+	account.Get("/:id", h.GetByID)
 	account.Put("", h.UpdateAccount)
 	account.Delete("", h.DeleteAccount)
 	account.Get("/tickets", h.GetTicketByUserID)
