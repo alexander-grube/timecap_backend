@@ -25,6 +25,22 @@ func newAccountResponse(a *model.Account) *accountResponse {
 	return r
 }
 
+type safeAccountResponse struct {
+	Account struct {
+		Firstname string `json:"firstname"`
+		Lastname  string `json:"lastname"`
+		Email     string `json:"email"`
+	} `json:"account"`
+}
+
+func newSafeAccountResponse(a *model.Account) *safeAccountResponse {
+	r := new(safeAccountResponse)
+	r.Account.Firstname = a.Firstname
+	r.Account.Lastname = a.Lastname
+	r.Account.Email = a.Email
+	return r
+}
+
 type accountUpdateResponse struct {
 	Account struct {
 		Firstname string            `json:"firstname"`

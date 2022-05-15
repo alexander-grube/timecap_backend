@@ -67,7 +67,7 @@ func (h *Handler) GetByID (c *fiber.Ctx) error {
 		return c.Status(http.StatusNotFound).JSON(utils.NewError(err))
 	}
 
-	return c.JSON(newAccountResponse(a))
+	return c.JSON(newSafeAccountResponse(a))
 }
 
 func (h *Handler) UpdateAccount(c *fiber.Ctx) error {
