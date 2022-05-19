@@ -23,7 +23,7 @@ type Account struct {
 	Email     string `gorm:"typevarchar(100);uniqueIndex"`
 	Password  string
 	Role      AccountRole
-	Tickets  []Ticket `gorm:"foreignkey:ID"`
+	Tickets  []Ticket `gorm:"foreignkey:AccountID"`
 }
 
 func (a *Account) HashPassword(plain string) (string, error) {

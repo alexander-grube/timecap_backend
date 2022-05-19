@@ -147,7 +147,7 @@ func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator, 
 		return errors.New("user not allowed to create tickets")
 	}
 
-	t.Account = *account
+	t.AccountID = userID
 
 	return nil
 
