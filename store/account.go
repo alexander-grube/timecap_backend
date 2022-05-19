@@ -19,7 +19,7 @@ func (as *AccountStore) GetByID(id uint) (*model.Account, error) {
 	var a model.Account
 	if err := as.db.First(&a, id).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			return nil, nil
+			return nil, err
 		}
 		return nil, err
 	}

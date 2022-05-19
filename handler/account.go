@@ -56,7 +56,7 @@ func (h *Handler) CurrentAccount(c *fiber.Ctx) error {
 	return c.Status(http.StatusOK).JSON(newAccountResponse(a))
 }
 
-func (h *Handler) GetByID (c *fiber.Ctx) error {
+func (h *Handler) GetByID(c *fiber.Ctx) error {
 	id := c.Params("id")
 	idUint, err := strconv.ParseUint(id, 10, 64)
 	if err != nil {
