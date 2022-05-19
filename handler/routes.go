@@ -7,6 +7,12 @@ import (
 )
 
 func (h *Handler) Register(r *fiber.App) {
+
+	// root route
+	r.Get("/", func (c* fiber.Ctx) error {
+		return c.SendString("Is Up")
+	})
+
 	v1 := r.Group("/api")
 	jwtMiddleware := jwtware.New(
 		jwtware.Config{
@@ -21,7 +27,6 @@ func (h *Handler) Register(r *fiber.App) {
 	account.Get("/:id", h.GetByID)
 	account.Put("", h.UpdateAccount)
 	account.Delete("", h.DeleteAccount)
-	account.Get("/tickets", h.GetTicketByUserID)
 	ticket := v1.Group("/ticket", jwtMiddleware)
 	ticket.Post("/new", h.CreateTicket)
 	ticket.Get("/:id", h.GetTicketByID)

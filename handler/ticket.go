@@ -38,16 +38,6 @@ func (h *Handler) GetTicketByID(c *fiber.Ctx) error {
 	return c.JSON(newTicketResponse(t))
 }
 
-func (h *Handler) GetTicketByUserID(c *fiber.Ctx) error {
-	userID := userIDFromToken(c)
-	t, err := h.ticketStore.GetByUserID(userID)
-	if err != nil {
-		return c.Status(http.StatusNotFound).JSON(utils.NewError(err))
-	}
-
-	return c.JSON(t)
-}
-
 func (h *Handler) GetAllTickets(c *fiber.Ctx) error {
 	t, err := h.ticketStore.GetAll()
 	if err != nil {
