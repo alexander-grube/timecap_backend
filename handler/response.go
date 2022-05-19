@@ -84,7 +84,12 @@ type ticketResponse struct {
 		Priority    uint   `json:"priority"`
 		Type        uint   `json:"type"`
 		Status      uint   `json:"status"`
-		AccountID   int    `json:"accountID"`
+		Account     struct {
+			Firstname string `json:"firstname"`
+			Lastname  string `json:"lastname"`
+			Email     string `json:"email"`
+			Role      uint   `json:"role"`
+		} `json:"account"`
 	} `json:"ticket"`
 }
 
@@ -95,6 +100,9 @@ func newTicketResponse(t *model.Ticket) *ticketResponse {
 	r.Ticket.Priority = uint(t.Priority)
 	r.Ticket.Type = uint(t.Type)
 	r.Ticket.Status = uint(t.Status)
-	r.Ticket.AccountID = t.AccountID
+	r.Ticket.Account.Firstname = t.Account.Firstname
+	r.Ticket.Account.Lastname = t.Account.Lastname
+	r.Ticket.Account.Email = t.Account.Email
+	r.Ticket.Account.Role = uint(t.Account.Role)
 	return r
 }
