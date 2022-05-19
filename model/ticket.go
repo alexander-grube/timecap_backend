@@ -34,5 +34,5 @@ type Ticket struct {
 	Priority    TicketPriority
 	Type        TicketType
 	Status      TicketStatus
-	Account    Account `gorm:"foreignkey:AccountID"`
+	Account     Account `gorm:"foreignkey:ID"`
 }
