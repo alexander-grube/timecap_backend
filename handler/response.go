@@ -93,7 +93,7 @@ type ticketResponse struct {
 	} `json:"ticket"`
 }
 
-func newTicketResponse(t *model.Ticket) *ticketResponse {
+func newTicketResponse(t *model.Ticket, a *model.Account) *ticketResponse {
 	r := new(ticketResponse)
 	r.Ticket.Topic = t.Topic
 	r.Ticket.Description = t.Description
@@ -101,6 +101,38 @@ func newTicketResponse(t *model.Ticket) *ticketResponse {
 	r.Ticket.Type = uint(t.Type)
 	r.Ticket.Status = uint(t.Status)
 
+	r.Ticket.Account.Firstname = a.Firstname
+	r.Ticket.Account.Lastname = a.Lastname
+	r.Ticket.Account.Email = a.Email
+	r.Ticket.Account.Role = uint(a.Role)
+
+
+
 	
+	return r
+}
+
+type ticketCreatedResponse struct {
+	Ticket struct {
+		Topic       string `json:"topic"`
+		Description string `json:"description"`
+		Priority    uint   `json:"priority"`
+		Type        uint   `json:"type"`
+		Status      uint   `json:"status"`
+		AccountID  uint   `json:"account_id"`
+	} `json:"ticket"`
+}
+
+
+func newTicketCreatedResponse(t *model.Ticket) *ticketCreatedResponse {
+	r := new(ticketCreatedResponse)
+	r.Ticket.Topic = t.Topic
+	r.Ticket.Description = t.Description
+	r.Ticket.Priority = uint(t.Priority)
+	r.Ticket.Type = uint(t.Type)
+	r.Ticket.Status = uint(t.Status)
+	r.Ticket.AccountID = t.AccountID
+	
+
 	return r
 }

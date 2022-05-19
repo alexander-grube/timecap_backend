@@ -21,7 +21,7 @@ func (h *Handler) CreateTicket(c *fiber.Ctx) error {
 		return c.Status(http.StatusUnprocessableEntity).JSON(utils.NewError(err))
 	}
 
-	return c.Status(http.StatusCreated).JSON(newTicketResponse(&t))
+	return c.Status(http.StatusCreated).JSON(newTicketCreatedResponse(&t))
 }
 
 func (h *Handler) GetTicketByID(c *fiber.Ctx) error {
@@ -34,8 +34,11 @@ func (h *Handler) GetTicketByID(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(http.StatusNotFound).JSON(utils.NewError(err))
 	}
-
-	return c.JSON(newTicketResponse(t))
+	a, err := h.accountStore.GetByID(t.AccountID)
+	if err != nil {
+		return c.Status(http.StatusNotFound).JSON(utils.NewError(err))
+	}
+	return c.JSON(newTicketResponse(t, a))
 }
 
 func (h *Handler) GetAllTickets(c *fiber.Ctx) error {
