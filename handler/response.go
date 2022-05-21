@@ -106,9 +106,39 @@ func newTicketResponse(t *model.Ticket, a *model.Account) *ticketResponse {
 	r.Ticket.Account.Email = a.Email
 	r.Ticket.Account.Role = uint(a.Role)
 
+	return r
+}
 
+type ticketOverviewResponse struct {
+	Ticket[] struct {
+		ID          uint   `json:"id"`
+		Topic       string `json:"topic"`
+		Description string `json:"description"`
+		Priority    uint   `json:"priority"`
+		Type        uint   `json:"type"`
+		Status      uint   `json:"status"`
+	}
+}
 
-	
+func newTicketOverviewResponse(t []*model.Ticket) *ticketOverviewResponse {
+	r := new(ticketOverviewResponse)
+	for _, v := range t {
+		r.Ticket = append(r.Ticket, struct {
+			ID          uint   `json:"id"`
+			Topic       string `json:"topic"`
+			Description string `json:"description"`
+			Priority    uint   `json:"priority"`
+			Type        uint   `json:"type"`
+			Status      uint   `json:"status"`
+		}{
+			ID:          v.ID,
+			Topic:       v.Topic,
+			Description: v.Description,
+			Priority:    uint(v.Priority),
+			Type:        uint(v.Type),
+			Status:      uint(v.Status),
+		})
+	}
 	return r
 }
 
@@ -119,10 +149,9 @@ type ticketCreatedResponse struct {
 		Priority    uint   `json:"priority"`
 		Type        uint   `json:"type"`
 		Status      uint   `json:"status"`
-		AccountID  uint   `json:"account_id"`
+		AccountID   uint   `json:"account_id"`
 	} `json:"ticket"`
 }
-
 
 func newTicketCreatedResponse(t *model.Ticket) *ticketCreatedResponse {
 	r := new(ticketCreatedResponse)
@@ -132,7 +161,6 @@ func newTicketCreatedResponse(t *model.Ticket) *ticketCreatedResponse {
 	r.Ticket.Type = uint(t.Type)
 	r.Ticket.Status = uint(t.Status)
 	r.Ticket.AccountID = t.AccountID
-	
 
 	return r
 }

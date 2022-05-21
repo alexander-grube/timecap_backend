@@ -47,5 +47,5 @@ func (h *Handler) GetAllTickets(c *fiber.Ctx) error {
 		return c.Status(http.StatusNotFound).JSON(utils.NewError(err))
 	}
 
-	return c.JSON(t)
+	return c.JSON(newTicketOverviewResponse(t))
 }
