@@ -117,7 +117,7 @@ type ticketOverviewResponse struct {
 		Priority    uint   `json:"priority"`
 		Type        uint   `json:"type"`
 		Status      uint   `json:"status"`
-	}
+	} `json:"ticket"`
 }
 
 func newTicketOverviewResponse(t []*model.Ticket) *ticketOverviewResponse {
