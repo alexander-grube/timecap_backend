@@ -30,5 +30,6 @@ func (h *Handler) Register(r *fiber.App) {
 	ticket := v1.Group("/ticket", jwtMiddleware)
 	ticket.Post("/new", h.CreateTicket)
 	ticket.Get("/:id", h.GetTicketByID)
+	ticket.Put("/:id", h.UpdateTicket)
 	ticket.Get("", h.GetAllTickets)
 }

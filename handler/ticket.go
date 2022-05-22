@@ -49,3 +49,25 @@ func (h *Handler) GetAllTickets(c *fiber.Ctx) error {
 
 	return c.JSON(newTicketOverviewResponse(t))
 }
+
+func (h *Handler) UpdateTicket(c *fiber.Ctx) error {
+	id := c.Params("id")
+	idUint, err := strconv.ParseUint(id, 10, 64)
+	if err != nil {
+		return c.Status(http.StatusUnprocessableEntity).JSON(utils.NewError(err))
+	}
+	var t model.Ticket
+	req := ticketUpdateRequest{}
+
+	req.Ticket.ID = uint(idUint)
+
+	if err := req.bind(c, &t, h.validator, h.accountStore); err != nil {
+		return c.Status(http.StatusUnprocessableEntity).JSON(utils.NewError(err))
+	}
+
+	if err := h.ticketStore.Update(&t); err != nil {
+		return c.Status(http.StatusUnprocessableEntity).JSON(utils.NewError(err))
+	}
+
+	return c.JSON(newTicketResponse(&t, nil))
+}

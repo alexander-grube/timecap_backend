@@ -110,7 +110,7 @@ func newTicketResponse(t *model.Ticket, a *model.Account) *ticketResponse {
 }
 
 type ticketOverviewResponse struct {
-	Ticket[] struct {
+	Ticket []struct {
 		ID          uint   `json:"id"`
 		Topic       string `json:"topic"`
 		Description string `json:"description"`

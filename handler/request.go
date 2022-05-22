@@ -152,3 +152,50 @@ func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator, 
 	return nil
 
 }
+
+type ticketUpdateRequest struct {
+	Ticket struct {
+		ID          uint   `json:"id"`
+		Topic       string `json:"topic"`
+		Description string `json:"description"`
+		Priority    uint   `json:"priority"`
+		Type        uint   `json:"type"`
+		Status      uint   `json:"status"`
+	} `json:"ticket"`
+}
+
+func (r *ticketUpdateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator, as account.Store) error {
+	if err := c.BodyParser(r); err != nil {
+		return err
+	}
+	if err := v.Validate(r); err != nil {
+		return err
+	}
+
+	if r.Ticket.ID == 0 {
+		return errors.New("ticket id is empty")
+	}
+
+	t.ID = r.Ticket.ID
+	t.Topic = r.Ticket.Topic
+	t.Description = r.Ticket.Description
+	t.Priority = model.TicketPriority(r.Ticket.Priority)
+	t.Type = model.TicketType(r.Ticket.Type)
+	t.Status = model.TicketStatus(r.Ticket.Status)
+
+	userID := userIDFromToken(c)
+
+	account, err := as.GetByID(userID)
+
+	if err != nil {
+		return err
+	}
+
+	if uint(account.Role) >= uint(model.User) {
+		return errors.New("user not allowed to update tickets")
+	}
+
+	t.AccountID = userID
+
+	return nil
+}
