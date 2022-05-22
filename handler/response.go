@@ -10,8 +10,8 @@ type accountResponse struct {
 		Firstname string            `json:"firstname"`
 		Lastname  string            `json:"lastname"`
 		Email     string            `json:"email"`
-		Role      model.AccountRole `json:"role"`
 		Token     string            `json:"token"`
+		Role      model.AccountRole `json:"role"`
 	} `json:"account"`
 }
 
@@ -79,16 +79,16 @@ func newAccountDeleteResponse(a *model.Account) *accountDeleteResponse {
 
 type ticketResponse struct {
 	Ticket struct {
-		Topic       string `json:"topic"`
-		Description string `json:"description"`
 		Priority    uint   `json:"priority"`
 		Type        uint   `json:"type"`
 		Status      uint   `json:"status"`
+		Topic       string `json:"topic"`
+		Description string `json:"description"`
 		Account     struct {
+			Role      uint   `json:"role"`
 			Firstname string `json:"firstname"`
 			Lastname  string `json:"lastname"`
 			Email     string `json:"email"`
-			Role      uint   `json:"role"`
 		} `json:"account"`
 	} `json:"ticket"`
 }
@@ -112,11 +112,11 @@ func newTicketResponse(t *model.Ticket, a *model.Account) *ticketResponse {
 type ticketOverviewResponse struct {
 	Ticket []struct {
 		ID          uint   `json:"id"`
-		Topic       string `json:"topic"`
-		Description string `json:"description"`
 		Priority    uint   `json:"priority"`
 		Type        uint   `json:"type"`
 		Status      uint   `json:"status"`
+		Topic       string `json:"topic"`
+		Description string `json:"description"`
 	} `json:"ticket"`
 }
 
@@ -125,11 +125,11 @@ func newTicketOverviewResponse(t []*model.Ticket) *ticketOverviewResponse {
 	for _, v := range t {
 		r.Ticket = append(r.Ticket, struct {
 			ID          uint   `json:"id"`
-			Topic       string `json:"topic"`
-			Description string `json:"description"`
 			Priority    uint   `json:"priority"`
 			Type        uint   `json:"type"`
 			Status      uint   `json:"status"`
+			Topic       string `json:"topic"`
+			Description string `json:"description"`
 		}{
 			ID:          v.ID,
 			Topic:       v.Topic,
@@ -144,12 +144,12 @@ func newTicketOverviewResponse(t []*model.Ticket) *ticketOverviewResponse {
 
 type ticketCreatedResponse struct {
 	Ticket struct {
-		Topic       string `json:"topic"`
-		Description string `json:"description"`
 		Priority    uint   `json:"priority"`
 		Type        uint   `json:"type"`
 		Status      uint   `json:"status"`
 		AccountID   uint   `json:"account_id"`
+		Topic       string `json:"topic"`
+		Description string `json:"description"`
 	} `json:"ticket"`
 }
 

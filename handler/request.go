@@ -50,15 +50,15 @@ func (r *accountRegisterRequest) bind(c *fiber.Ctx, a *model.Account, v *Validat
 
 type accountUpdateRequest struct {
 	Account struct {
+		Role      int    `json:"role"`
 		Firstname string `json:"firstname"`
 		Lastname  string `json:"lastname"`
 		Email     string `json:"email"`
 		Password  string `json:"password"`
-		Role 	int    `json:"role"`
 	} `json:"account"`
 }
 
-func (r* accountUpdateRequest) bind(c *fiber.Ctx, a *model.Account, v *Validator) error {
+func (r *accountUpdateRequest) bind(c *fiber.Ctx, a *model.Account, v *Validator) error {
 	if err := c.BodyParser(r); err != nil {
 		return err
 	}
@@ -113,11 +113,11 @@ func (r *accountLoginRequest) bind(c *fiber.Ctx, v *Validator) error {
 
 type ticketCreateRequest struct {
 	Ticket struct {
-		Topic       string `json:"topic" validate:"required"`
-		Description string `json:"description" validate:"required"`
 		Priority    uint   `json:"priority" validate:"required"`
 		Type        uint   `json:"type" validate:"required"`
 		Status      uint   `json:"status" validate:"required"`
+		Topic       string `json:"topic" validate:"required"`
+		Description string `json:"description" validate:"required"`
 	} `json:"ticket"`
 }
 
@@ -156,11 +156,11 @@ func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator, 
 type ticketUpdateRequest struct {
 	Ticket struct {
 		ID          uint   `json:"id"`
-		Topic       string `json:"topic"`
-		Description string `json:"description"`
 		Priority    uint   `json:"priority"`
 		Type        uint   `json:"type"`
 		Status      uint   `json:"status"`
+		Topic       string `json:"topic"`
+		Description string `json:"description"`
 	} `json:"ticket"`
 }
 
