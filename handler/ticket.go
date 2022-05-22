@@ -69,5 +69,5 @@ func (h *Handler) UpdateTicket(c *fiber.Ctx) error {
 		return c.Status(http.StatusUnprocessableEntity).JSON(utils.NewError(err))
 	}
 
-	return c.JSON(newTicketResponse(&t, nil))
+	return c.JSON(newTicketCreatedResponse(&t))
 }
