@@ -6,17 +6,17 @@ go 1.18
 require (
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/go-playground/validator/v10 v10.11.0
-	github.com/gofiber/fiber/v2 v2.33.0
+	github.com/gofiber/fiber/v2 v2.34.1
 	github.com/gofiber/jwt/v2 v2.2.7
-	github.com/golang-jwt/jwt/v4 v4.4.1
-	github.com/klauspost/compress v1.15.4 // indirect
+	github.com/golang-jwt/jwt/v4 v4.4.2
+	github.com/klauspost/compress v1.15.6 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
-	github.com/valyala/fasthttp v1.36.0 // indirect
+	github.com/valyala/fasthttp v1.38.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
-	golang.org/x/crypto v0.0.0-20220513210258-46612604a0f9
-	golang.org/x/sys v0.0.0-20220513210249-45d2b4557a2a // indirect
-	gorm.io/driver/postgres v1.3.5
-	gorm.io/gorm v1.23.5
+	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d
+	golang.org/x/sys v0.0.0-20220627191245-f75cf1eec38b // indirect
+	gorm.io/driver/postgres v1.3.7
+	gorm.io/gorm v1.23.6
 )
 
 require (
