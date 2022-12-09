@@ -38,5 +38,5 @@ func main() {
 
 	h.Register(app)
 
-	app.Listen(PORT)
+	app.Listen(os.Getenv("IP") + PORT)
 }
