@@ -38,5 +38,5 @@ func main() {
 
 	h.Register(app)
 
-	app.Listen(os.Getenv("IP") + PORT)
+	app.ListenTLS(os.Getenv("IP")+PORT, "/etc/letsencrypt/live/backend-bugtrack.alexgrube.dev/fullchain.pem", "/etc/letsencrypt/live/backend-bugtrack.alexgrube.dev/privkey.pem")
 }
