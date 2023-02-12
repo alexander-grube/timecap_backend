@@ -35,4 +35,5 @@ type Ticket struct {
 	Type        TicketType
 	Status      TicketStatus
 	AccountID   uint
+	ProjectID   uint
 }
