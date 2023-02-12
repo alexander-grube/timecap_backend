@@ -16,35 +16,35 @@ func NewTicketStore(db *gorm.DB) *TicketStore {
 }
 
 func (ts *TicketStore) GetByID(id uint) (*model.Ticket, error) {
-	var a model.Ticket
-	if err := ts.db.First(&a, id).Error; err != nil {
+	var t model.Ticket
+	if err := ts.db.First(&t, id).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, err
 		}
 		return nil, err
 	}
-	return &a, nil
+	return &t, nil
 }
 
 func (ts *TicketStore) GetAll() ([]*model.Ticket, error) {
-	var a []*model.Ticket
-	if err := ts.db.Find(&a).Error; err != nil {
+	var t []*model.Ticket
+	if err := ts.db.Find(&t).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, nil
 		}
 		return nil, err
 	}
-	return a, nil
+	return t, nil
 }
 
-func (ts *TicketStore) Create(a *model.Ticket) (err error) {
-	return ts.db.Create(a).Error
+func (ts *TicketStore) Create(t *model.Ticket) (err error) {
+	return ts.db.Create(t).Error
 }
 
-func (ts *TicketStore) Update(a *model.Ticket) (err error) {
-	return ts.db.Model(a).Updates(a).Error
+func (ts *TicketStore) Update(t *model.Ticket) (err error) {
+	return ts.db.Model(t).Updates(t).Error
 }
 
-func (ts *TicketStore) Delete(a *model.Ticket) (err error) {
-	return ts.db.Delete(a).Error
+func (ts *TicketStore) Delete(t *model.Ticket) (err error) {
+	return ts.db.Delete(t).Error
 }

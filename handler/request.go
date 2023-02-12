@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/spctr-cc/backend-bugtrack/account"
 	"github.com/spctr-cc/backend-bugtrack/model"
+	"github.com/spctr-cc/backend-bugtrack/store/account"
 )
 
 type accountRegisterRequest struct {
@@ -196,6 +196,40 @@ func (r *ticketUpdateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator, 
 	}
 
 	t.AccountID = userID
+
+	return nil
+}
+
+type projectCreateRequest struct {
+	Project struct {
+		Name        string `json:"name" validate:"required"`
+		Description string `json:"description" validate:"required"`
+	} `json:"project"`
+}
+
+func (r *projectCreateRequest) bind(c *fiber.Ctx, p *model.Project, v *Validator, as account.Store) error {
+	if err := c.BodyParser(r); err != nil {
+		return err
+	}
+	if err := v.Validate(r); err != nil {
+		return err
+	}
+
+	userID := userIDFromToken(c)
+
+	account, err := as.GetByID(userID)
+
+	if err != nil {
+		return err
+	}
+
+	if uint(account.Role) >= uint(model.User) {
+		return errors.New("user not allowed to create projects")
+	}
+
+	p.Name = r.Project.Name
+	p.Description = r.Project.Description
+	p.Accounts = append(p.Accounts, *account)
 
 	return nil
 }

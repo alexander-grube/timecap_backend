@@ -34,7 +34,9 @@ func main() {
 
 	ts := store.NewTicketStore(d)
 
-	h := handler.NewHandler(as, ts)
+	ps := store.NewProjectStore(d)
+
+	h := handler.NewHandler(as, ts, ps)
 
 	h.Register(app)
 

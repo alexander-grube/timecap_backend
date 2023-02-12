@@ -24,6 +24,8 @@ type Account struct {
 	Password  string
 	Role      AccountRole
 	Tickets  []Ticket `gorm:"foreignkey:AccountID"`
+	Projects []Project `gorm:"many2many:project_accounts;"`
+	OrganizationID uint `gorm:"index"`
 }
 
 func (a *Account) HashPassword(plain string) (string, error) {

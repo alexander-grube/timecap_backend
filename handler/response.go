@@ -173,3 +173,18 @@ func newTicketCreatedResponse(t *model.Ticket) *ticketCreatedResponse {
 
 	return r
 }
+
+type projectCreatedResponse struct {
+	Project struct {
+		Name        string `json:"name"`
+		Description string `json:"description"`
+	} `json:"project"`
+}
+
+func newProjectCreatedResponse(p *model.Project) *projectCreatedResponse {
+	r := new(projectCreatedResponse)
+	r.Project.Name = p.Name
+	r.Project.Description = p.Description
+
+	return r
+}
