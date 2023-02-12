@@ -25,6 +25,15 @@ func newAccountResponse(a *model.Account) *accountResponse {
 	return r
 }
 
+func newAccountResponseWithoutJWT(a *model.Account) *accountResponse {
+	r := new(accountResponse)
+	r.Account.Firstname = a.Firstname
+	r.Account.Lastname = a.Lastname
+	r.Account.Email = a.Email
+	r.Account.Role = a.Role
+	return r
+}
+
 type safeAccountResponse struct {
 	Account struct {
 		Firstname string `json:"firstname"`

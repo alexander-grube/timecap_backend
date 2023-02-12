@@ -53,7 +53,7 @@ func (h *Handler) CurrentAccount(c *fiber.Ctx) error {
 	if a == nil {
 		return c.Status(http.StatusNotFound).JSON(utils.NotFound())
 	}
-	return c.Status(http.StatusOK).JSON(newAccountResponse(a))
+	return c.Status(http.StatusOK).JSON(newAccountResponseWithoutJWT(a))
 }
 
 func (h *Handler) GetByID(c *fiber.Ctx) error {
