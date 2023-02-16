@@ -5,3 +5,7 @@ local:
 prod:
 	go build .
 	./backend-bugtrack
+
+prodnohup:
+	go build .
+	nohup ./backend-bugtrack &
