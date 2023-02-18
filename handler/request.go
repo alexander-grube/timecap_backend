@@ -2,6 +2,8 @@ package handler
 
 import (
 	"errors"
+	"fmt"
+	"log"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
@@ -118,10 +120,11 @@ type ticketCreateRequest struct {
 		Status      uint   `json:"status" validate:"required"`
 		Topic       string `json:"topic" validate:"required"`
 		Description string `json:"description" validate:"required"`
+		ProjectID   uint   `json:"project_id" validate:"required"`
 	} `json:"ticket"`
 }
 
-func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator, as account.Store) error {
+func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator, as account.Store, isServiceUser bool) error {
 	if err := c.BodyParser(r); err != nil {
 		return err
 	}
@@ -135,19 +138,26 @@ func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator, 
 	t.Type = model.TicketType(r.Ticket.Type)
 	t.Status = model.TicketStatus(r.Ticket.Status)
 
-	userID := userIDFromToken(c)
+	if !isServiceUser {
+		userID := userIDFromToken(c)
 
-	account, err := as.GetByID(userID)
+		account, err := as.GetByID(userID)
 
-	if err != nil {
-		return err
+		if err != nil {
+			return err
+		}
+
+		if uint(account.Role) >= uint(model.User) {
+			return errors.New("user not allowed to create tickets")
+		}
+
+		t.AccountID = userID
+	} else {
+		t.AccountID = 1
 	}
 
-	if uint(account.Role) >= uint(model.User) {
-		return errors.New("user not allowed to create tickets")
-	}
-
-	t.AccountID = userID
+	// todo for now set ProjectID to 1
+	t.ProjectID = r.Ticket.ProjectID
 
 	return nil
 
@@ -232,4 +242,67 @@ func (r *projectCreateRequest) bind(c *fiber.Ctx, p *model.Project, v *Validator
 	p.Accounts = append(p.Accounts, *account)
 
 	return nil
+}
+
+type azureCreateTicketRequest struct {
+	SubscriptionID  string `json:"subscriptionId"`
+	DetailedMessage struct {
+		Text string `json:"text"`
+	} `json:"detailedMessage"`
+	Resource struct {
+		ID  int    `json:"id"`
+		URL string `json:"url"`
+	} `json:"resource"`
+}
+
+func (r *azureCreateTicketRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator) error {
+	if err := c.BodyParser(r); err != nil {
+		return err
+	}
+	if err := v.Validate(r); err != nil {
+		return err
+	}
+
+	tcr := &ticketCreateRequest{}
+
+	parseAzureText(r.DetailedMessage.Text, tcr)
+
+	fmt.Printf("%+v\n", tcr)
+
+	err := tcr.bind(c, t, v, nil, true)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func parseAzureText(text string, tcr *ticketCreateRequest) {
+	split := strings.SplitN(text, " ", 2)
+	switch split[0] {
+	case "Bug":
+		tcr.Ticket.Type = uint(model.Bug)
+	default:
+		break
+	}
+
+	// split after )
+	split = strings.SplitN(split[1], ")", 2)
+	tcr.Ticket.Topic = split[0] + ")"
+
+	split = strings.SplitN(split[1], "State: ", 2)
+	tcr.Ticket.Description = split[0]
+	//split at next \n-
+	split = strings.SplitN(split[1], "\n-", 2)
+	log.Println(split[0])
+	split[0] = strings.TrimSpace(split[0])
+	switch split[0] {
+	case "New":
+		tcr.Ticket.Status = uint(model.New)
+	default:
+		break
+	}
+
+	tcr.Ticket.Priority = uint(model.Medium)
+	tcr.Ticket.ProjectID = 1
 }
