@@ -17,9 +17,9 @@ func (h *Handler) CreateAzureTicket(c *fiber.Ctx) error {
 		return c.Status(http.StatusUnprocessableEntity).JSON(utils.NewError(err))
 	}
 
-	// if err := h.ticketStore.Create(t); err != nil {
-	// 	return c.Status(http.StatusUnprocessableEntity).JSON(utils.NewError(err))
-	// }
+	if err := h.ticketStore.Create(t); err != nil {
+		return c.Status(http.StatusUnprocessableEntity).JSON(utils.NewError(err))
+	}
 
 	return c.Status(http.StatusCreated).JSON(newTicketCreatedResponse(t))
 }
