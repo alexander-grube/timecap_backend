@@ -3,7 +3,6 @@ package handler
 import (
 	"errors"
 	"fmt"
-	"log"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
@@ -138,23 +137,26 @@ func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator, 
 	t.Type = model.TicketType(r.Ticket.Type)
 	t.Status = model.TicketStatus(r.Ticket.Status)
 
+	var userID uint
 	if !isServiceUser {
-		userID := userIDFromToken(c)
-
-		account, err := as.GetByID(userID)
-
-		if err != nil {
-			return err
-		}
-
-		if uint(account.Role) >= uint(model.User) {
-			return errors.New("user not allowed to create tickets")
-		}
-
-		t.AccountID = userID
-	} else {
-		t.AccountID = 1
+		userID = userIDFromToken(c)
 	}
+
+	if isServiceUser {
+		userID = 1
+	}
+
+	account, err := as.GetByID(userID)
+
+	if err != nil {
+		return err
+	}
+
+	if uint(account.Role) >= uint(model.User) {
+		return errors.New("user not allowed to create tickets")
+	}
+
+	t.AccountID = userID
 
 	// todo for now set ProjectID to 1
 	t.ProjectID = r.Ticket.ProjectID
@@ -255,7 +257,7 @@ type azureCreateTicketRequest struct {
 	} `json:"resource"`
 }
 
-func (r *azureCreateTicketRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator) error {
+func (r *azureCreateTicketRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator, as account.Store) error {
 	if err := c.BodyParser(r); err != nil {
 		return err
 	}
@@ -267,9 +269,9 @@ func (r *azureCreateTicketRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Valida
 
 	parseAzureText(r.DetailedMessage.Text, tcr)
 
-	fmt.Printf("%+v\n", tcr)
+	// fmt.Printf("%+v\n", tcr)
 
-	err := tcr.bind(c, t, v, nil, true)
+	err := tcr.bind(c, t, v, as, true)
 	if err != nil {
 		return err
 	}
@@ -278,6 +280,10 @@ func (r *azureCreateTicketRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Valida
 }
 
 func parseAzureText(text string, tcr *ticketCreateRequest) {
+	// remove all \r\n from text
+	text = strings.ReplaceAll(text, "\r\n", " ")
+	text = strings.TrimSpace(text)
+	fmt.Println(text)
 	split := strings.SplitN(text, " ", 2)
 	switch split[0] {
 	case "Bug":
@@ -286,15 +292,14 @@ func parseAzureText(text string, tcr *ticketCreateRequest) {
 		break
 	}
 
-	// split after )
 	split = strings.SplitN(split[1], ")", 2)
 	tcr.Ticket.Topic = split[0] + ")"
 
 	split = strings.SplitN(split[1], "State: ", 2)
-	tcr.Ticket.Description = split[0]
-	//split at next \n-
-	split = strings.SplitN(split[1], "\n-", 2)
-	log.Println(split[0])
+	tcr.Ticket.Description = "CREATED BY AZURE \n" + split[0] + split[1]
+
+	split = strings.SplitN(split[1], "-", 2)
+
 	split[0] = strings.TrimSpace(split[0])
 	switch split[0] {
 	case "New":
