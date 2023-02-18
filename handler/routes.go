@@ -9,7 +9,7 @@ import (
 func (h *Handler) Register(r *fiber.App) {
 
 	// root route
-	r.Get("/", func (c* fiber.Ctx) error {
+	r.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Is Up")
 	})
 
@@ -42,5 +42,9 @@ func (h *Handler) Register(r *fiber.App) {
 	// project.Get("", h.GetAllProjects)
 	// project.Post("/:id/add", h.AddMemberToProject)
 	// project.Post("/:id/remove", h.RemoveMemberFromProject)
-	
+
+	azureDevOps := v1.Group("/azure")
+	azureDevOps.Post("/webhook", h.CreateAzureTicket)
+	// TODO: more routes
+
 }

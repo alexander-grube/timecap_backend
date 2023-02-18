@@ -43,7 +43,9 @@ func main() {
 
 	ps := store.NewProjectStore(d)
 
-	h := handler.NewHandler(as, ts, ps)
+	azs := store.NewAzureStore()
+
+	h := handler.NewHandler(as, ts, ps, azs)
 
 	h.Register(app)
 
