@@ -145,7 +145,7 @@ func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator, 
 	}
 
 	if isServiceUser {
-		userID = 1
+		userID = 17
 	}
 
 	account, err := as.GetByID(userID)
