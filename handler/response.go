@@ -12,6 +12,7 @@ type accountResponse struct {
 		Email     string            `json:"email"`
 		Token     string            `json:"token"`
 		Role      model.AccountRole `json:"role"`
+		Organization uint			`json:"organization"`
 	} `json:"account"`
 }
 
@@ -21,6 +22,7 @@ func newAccountResponse(a *model.Account) *accountResponse {
 	r.Account.Lastname = a.Lastname
 	r.Account.Email = a.Email
 	r.Account.Role = a.Role
+	r.Account.Organization = a.OrganizationID
 	r.Account.Token = utils.GenerateJWT(a.ID)
 	return r
 }

@@ -16,6 +16,7 @@ type accountRegisterRequest struct {
 		Lastname  string `json:"lastname" validate:"required,min=2,max=100"`
 		Email     string `json:"email" validate:"required,email"`
 		Password  string `json:"password" validate:"required"`
+		Organization uint `json:"organization" validate:"required"`
 	} `json:"account"`
 }
 
@@ -42,6 +43,7 @@ func (r *accountRegisterRequest) bind(c *fiber.Ctx, a *model.Account, v *Validat
 		return err
 	}
 	a.Password = h
+	a.OrganizationID = r.Account.Organization
 
 	// DEFAULT ROLE
 	a.Role = model.Admin
