@@ -13,7 +13,7 @@ func (h *Handler) Register(r *fiber.App) {
 		return c.SendString("Is Up")
 	})
 
-	v1 := r.Group("/api")
+	v1 := r.Group("/bugtracker")
 	jwtMiddleware := jwtware.New(
 		jwtware.Config{
 			SigningKey: utils.JWTSecret,
