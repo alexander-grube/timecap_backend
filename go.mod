@@ -4,13 +4,13 @@ go 1.22
 
 require (
 	github.com/andybalholm/brotli v1.1.0 // indirect
-	github.com/go-playground/validator/v10 v10.17.0
+	github.com/go-playground/validator/v10 v10.18.0
 	github.com/gofiber/fiber/v2 v2.52.0
 	github.com/gofiber/jwt/v2 v2.2.7
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/klauspost/compress v1.17.6 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
-	github.com/valyala/fasthttp v1.51.0 // indirect
+	github.com/valyala/fasthttp v1.52.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	golang.org/x/crypto v0.19.0
 	golang.org/x/sys v0.17.0 // indirect
