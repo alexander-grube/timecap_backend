@@ -15,7 +15,7 @@ require (
 	golang.org/x/crypto v0.21.0
 	golang.org/x/sys v0.18.0 // indirect
 	gorm.io/driver/postgres v1.5.7
-	gorm.io/gorm v1.25.7
+	gorm.io/gorm v1.25.8
 )
 
 require github.com/joho/godotenv v1.5.1
