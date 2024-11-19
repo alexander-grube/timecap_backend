@@ -5,13 +5,13 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gofiber/fiber/v2"
-	jwtware "github.com/golang-jwt/jwt/v4"
+	"github.com/gofiber/fiber/v3"
+	jwtware "github.com/golang-jwt/jwt/v5"
 	"github.com/spctr-cc/backend-bugtrack/model"
 	"github.com/spctr-cc/backend-bugtrack/utils"
 )
 
-func (h *Handler) Login(c *fiber.Ctx) error {
+func (h *Handler) Login(c fiber.Ctx) error {
 	req := &accountLoginRequest{}
 	if err := req.bind(c, h.validator); err != nil {
 		return c.Status(http.StatusUnprocessableEntity).JSON(utils.NewError(err))
@@ -30,7 +30,7 @@ func (h *Handler) Login(c *fiber.Ctx) error {
 	return c.Status(http.StatusOK).JSON(newAccountResponse(a))
 }
 
-func (h *Handler) SignUp(c *fiber.Ctx) error {
+func (h *Handler) SignUp(c fiber.Ctx) error {
 	var a model.Account
 	req := accountRegisterRequest{}
 
@@ -45,7 +45,7 @@ func (h *Handler) SignUp(c *fiber.Ctx) error {
 	return c.Status(http.StatusCreated).JSON(newAccountResponse(&a))
 }
 
-func (h *Handler) CurrentAccount(c *fiber.Ctx) error {
+func (h *Handler) CurrentAccount(c fiber.Ctx) error {
 	a, err := h.accountStore.GetByID(userIDFromToken(c))
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(utils.NewError(err))
@@ -56,7 +56,7 @@ func (h *Handler) CurrentAccount(c *fiber.Ctx) error {
 	return c.Status(http.StatusOK).JSON(newAccountResponseWithoutJWT(a))
 }
 
-func (h *Handler) GetByID(c *fiber.Ctx) error {
+func (h *Handler) GetByID(c fiber.Ctx) error {
 	id := c.Params("id")
 	idUint, err := strconv.ParseUint(id, 10, 64)
 	if err != nil {
@@ -70,7 +70,7 @@ func (h *Handler) GetByID(c *fiber.Ctx) error {
 	return c.JSON(newSafeAccountResponse(a))
 }
 
-func (h *Handler) UpdateAccount(c *fiber.Ctx) error {
+func (h *Handler) UpdateAccount(c fiber.Ctx) error {
 	a, err := h.accountStore.GetByID(userIDFromToken(c))
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(utils.NewError(err))
@@ -88,7 +88,7 @@ func (h *Handler) UpdateAccount(c *fiber.Ctx) error {
 	return c.Status(http.StatusOK).JSON(newAccountUpdateResponse(a))
 }
 
-func (h *Handler) DeleteAccount(c *fiber.Ctx) error {
+func (h *Handler) DeleteAccount(c fiber.Ctx) error {
 	a, err := h.accountStore.GetByID(userIDFromToken(c))
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(utils.NewError(err))
@@ -102,7 +102,7 @@ func (h *Handler) DeleteAccount(c *fiber.Ctx) error {
 	return c.Status(http.StatusOK).JSON(newAccountDeleteResponse(a))
 }
 
-func userIDFromToken(c *fiber.Ctx) uint {
+func userIDFromToken(c fiber.Ctx) uint {
 	var account *jwtware.Token
 	l := c.Locals("user")
 	if l == nil {

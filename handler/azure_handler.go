@@ -3,12 +3,12 @@ package handler
 import (
 	"net/http"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 	"github.com/spctr-cc/backend-bugtrack/model"
 	"github.com/spctr-cc/backend-bugtrack/utils"
 )
 
-func (h *Handler) CreateAzureTicket(c *fiber.Ctx) error {
+func (h *Handler) CreateAzureTicket(c fiber.Ctx) error {
 
 	req := azureCreateTicketRequest{}
 	t := &model.Ticket{}

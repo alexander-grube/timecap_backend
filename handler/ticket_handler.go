@@ -4,12 +4,12 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 	"github.com/spctr-cc/backend-bugtrack/model"
 	"github.com/spctr-cc/backend-bugtrack/utils"
 )
 
-func (h *Handler) CreateTicket(c *fiber.Ctx) error {
+func (h *Handler) CreateTicket(c fiber.Ctx) error {
 	var t model.Ticket
 	req := ticketCreateRequest{}
 
@@ -24,7 +24,7 @@ func (h *Handler) CreateTicket(c *fiber.Ctx) error {
 	return c.Status(http.StatusCreated).JSON(newTicketCreatedResponse(&t))
 }
 
-func (h *Handler) GetTicketByID(c *fiber.Ctx) error {
+func (h *Handler) GetTicketByID(c fiber.Ctx) error {
 	id := c.Params("id")
 	idUint, err := strconv.ParseUint(id, 10, 64)
 	if err != nil {
@@ -41,7 +41,7 @@ func (h *Handler) GetTicketByID(c *fiber.Ctx) error {
 	return c.JSON(newTicketResponse(t, a))
 }
 
-func (h *Handler) GetAllTickets(c *fiber.Ctx) error {
+func (h *Handler) GetAllTickets(c fiber.Ctx) error {
 	t, err := h.ticketStore.GetAll()
 	if err != nil {
 		return c.Status(http.StatusNotFound).JSON(utils.NewError(err))
@@ -50,7 +50,7 @@ func (h *Handler) GetAllTickets(c *fiber.Ctx) error {
 	return c.JSON(newTicketOverviewResponse(t))
 }
 
-func (h *Handler) UpdateTicket(c *fiber.Ctx) error {
+func (h *Handler) UpdateTicket(c fiber.Ctx) error {
 	id := c.Params("id")
 	idUint, err := strconv.ParseUint(id, 10, 64)
 	if err != nil {

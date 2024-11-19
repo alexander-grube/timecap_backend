@@ -5,25 +5,25 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 	"github.com/spctr-cc/backend-bugtrack/model"
 	"github.com/spctr-cc/backend-bugtrack/store/account"
 )
 
 type accountRegisterRequest struct {
 	Account struct {
-		Firstname string `json:"firstname" validate:"required,min=2,max=100"`
-		Lastname  string `json:"lastname" validate:"required,min=2,max=100"`
-		Email     string `json:"email" validate:"required,email"`
-		Password  string `json:"password" validate:"required"`
-		OrganizationID uint `json:"organizationID" validate:"required"`
+		Firstname      string `json:"firstname" validate:"required,min=2,max=100"`
+		Lastname       string `json:"lastname" validate:"required,min=2,max=100"`
+		Email          string `json:"email" validate:"required,email"`
+		Password       string `json:"password" validate:"required"`
+		OrganizationID uint   `json:"organizationID" validate:"required"`
 	} `json:"account"`
 }
 
-func (r *accountRegisterRequest) bind(c *fiber.Ctx, a *model.Account, v *Validator) error {
+func (r *accountRegisterRequest) bind(c fiber.Ctx, a *model.Account, v *Validator) error {
 	// validate
 
-	if err := c.BodyParser(r); err != nil {
+	if err := c.Bind().Body(r); err != nil {
 		return err
 	}
 
@@ -61,8 +61,8 @@ type accountUpdateRequest struct {
 	} `json:"account"`
 }
 
-func (r *accountUpdateRequest) bind(c *fiber.Ctx, a *model.Account, v *Validator) error {
-	if err := c.BodyParser(r); err != nil {
+func (r *accountUpdateRequest) bind(c fiber.Ctx, a *model.Account, v *Validator) error {
+	if err := c.Bind().Body(r); err != nil {
 		return err
 	}
 
@@ -103,8 +103,8 @@ type accountLoginRequest struct {
 	} `json:"account"`
 }
 
-func (r *accountLoginRequest) bind(c *fiber.Ctx, v *Validator) error {
-	if err := c.BodyParser(r); err != nil {
+func (r *accountLoginRequest) bind(c fiber.Ctx, v *Validator) error {
+	if err := c.Bind().Body(r); err != nil {
 		return err
 	}
 
@@ -125,8 +125,8 @@ type ticketCreateRequest struct {
 	} `json:"ticket"`
 }
 
-func (r *ticketCreateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator, as account.Store, isServiceUser bool) error {
-	if err := c.BodyParser(r); err != nil {
+func (r *ticketCreateRequest) bind(c fiber.Ctx, t *model.Ticket, v *Validator, as account.Store, isServiceUser bool) error {
+	if err := c.Bind().Body(r); err != nil {
 		return err
 	}
 	if err := v.Validate(r); err != nil {
@@ -178,8 +178,8 @@ type ticketUpdateRequest struct {
 	} `json:"ticket"`
 }
 
-func (r *ticketUpdateRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator, as account.Store) error {
-	if err := c.BodyParser(r); err != nil {
+func (r *ticketUpdateRequest) bind(c fiber.Ctx, t *model.Ticket, v *Validator, as account.Store) error {
+	if err := c.Bind().Body(r); err != nil {
 		return err
 	}
 	if err := v.Validate(r); err != nil {
@@ -221,8 +221,8 @@ type projectCreateRequest struct {
 	} `json:"project"`
 }
 
-func (r *projectCreateRequest) bind(c *fiber.Ctx, p *model.Project, v *Validator, as account.Store) error {
-	if err := c.BodyParser(r); err != nil {
+func (r *projectCreateRequest) bind(c fiber.Ctx, p *model.Project, v *Validator, as account.Store) error {
+	if err := c.Bind().Body(r); err != nil {
 		return err
 	}
 	if err := v.Validate(r); err != nil {
@@ -259,8 +259,8 @@ type azureCreateTicketRequest struct {
 	} `json:"resource"`
 }
 
-func (r *azureCreateTicketRequest) bind(c *fiber.Ctx, t *model.Ticket, v *Validator, as account.Store) error {
-	if err := c.BodyParser(r); err != nil {
+func (r *azureCreateTicketRequest) bind(c fiber.Ctx, t *model.Ticket, v *Validator, as account.Store) error {
+	if err := c.Bind().Body(r); err != nil {
 		return err
 	}
 	if err := v.Validate(r); err != nil {

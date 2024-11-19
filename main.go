@@ -10,9 +10,9 @@ import (
 	"github.com/spctr-cc/backend-bugtrack/handler"
 	"github.com/spctr-cc/backend-bugtrack/store"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/cors"
+	"github.com/gofiber/fiber/v3/middleware/logger"
 )
 
 func main() {
@@ -49,9 +49,5 @@ func main() {
 
 	h.Register(app)
 
-	if len(os.Args) > 1 && os.Args[1] == "-l" {
-		app.Listen(PORT)
-	}
-
-	app.ListenTLS(os.Getenv("IP")+PORT, "/etc/letsencrypt/live/backend-bugtrack.alexgrube.dev/fullchain.pem", "/etc/letsencrypt/live/backend-bugtrack.alexgrube.dev/privkey.pem")
+	app.Listen(PORT)
 }
