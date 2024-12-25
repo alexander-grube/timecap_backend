@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/bytedance/sonic"
 	"github.com/joho/godotenv"
 	"github.com/spctr-cc/backend-bugtrack/db"
 	"github.com/spctr-cc/backend-bugtrack/handler"
@@ -31,7 +32,10 @@ func main() {
 	db.AutoMigrate(d)
 	fmt.Println("Database Migrated")
 
-	app := fiber.New()
+	app := fiber.New(fiber.Config{
+		JSONEncoder: sonic.Marshal,
+		JSONDecoder: sonic.Unmarshal,
+	})
 
 	app.Use(logger.New())
 
