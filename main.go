@@ -9,6 +9,7 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/spctr-cc/backend-bugtrack/db"
 	"github.com/spctr-cc/backend-bugtrack/handler"
+	"github.com/spctr-cc/backend-bugtrack/middleware"
 	"github.com/spctr-cc/backend-bugtrack/store"
 
 	"github.com/gofiber/fiber/v3"
@@ -40,6 +41,9 @@ func main() {
 	app.Use(logger.New())
 
 	app.Use(cors.New())
+
+	// Use the middleware before other handlers
+	app.Use(middleware.LogRequestBodyOnError)
 
 	as := store.NewAccountStore(d)
 
