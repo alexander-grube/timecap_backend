@@ -8,7 +8,7 @@ require (
 	github.com/klauspost/compress v1.18.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.62.0 // indirect
-	golang.org/x/crypto v0.38.0
+	golang.org/x/crypto v0.39.0
 	golang.org/x/sys v0.33.0 // indirect
 	gorm.io/driver/postgres v1.6.0
 	gorm.io/gorm v1.30.0
@@ -29,7 +29,7 @@ require (
 	github.com/gabriel-vasile/mimetype v1.4.9 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
-	github.com/gofiber/schema v1.4.0 // indirect
+	github.com/gofiber/schema v1.5.0 // indirect
 	github.com/gofiber/utils/v2 v2.0.0-beta.8 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
@@ -46,8 +46,8 @@ require (
 	github.com/tinylib/msgp v1.3.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
-	golang.org/x/arch v0.17.0 // indirect
-	golang.org/x/net v0.40.0 // indirect
-	golang.org/x/sync v0.14.0 // indirect
-	golang.org/x/text v0.25.0 // indirect
+	golang.org/x/arch v0.18.0 // indirect
+	golang.org/x/net v0.41.0 // indirect
+	golang.org/x/sync v0.15.0 // indirect
+	golang.org/x/text v0.26.0 // indirect
 )
