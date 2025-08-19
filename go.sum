@@ -35,6 +35,8 @@ github.com/gofiber/utils/v2 v2.0.0-beta.13 h1:dlpbGFLveQ9OduL2UHw4dtu4lXE+Gb3bHM
 github.com/gofiber/utils/v2 v2.0.0-beta.13/go.mod h1:qEZ175nSOkl5xciHmqxwNDsWzwiB39gB8RgU1d3U4mQ=
 github.com/gofiber/utils/v2 v2.0.0-beta.14 h1:sm2qJWshJip/DE/VKahhTNWb78gToesceTKdEgSs7rg=
 github.com/gofiber/utils/v2 v2.0.0-beta.14/go.mod h1:Y1g08g7gvST49bbjHJ1AVqcsmg93912R/tbKWhn6V3E=
+github.com/gofiber/utils/v2 v2.0.0-rc.1 h1:b77K5Rk9+Pjdxz4HlwEBnS7u5nikhx7armQB8xPds4s=
+github.com/gofiber/utils/v2 v2.0.0-rc.1/go.mod h1:Y1g08g7gvST49bbjHJ1AVqcsmg93912R/tbKWhn6V3E=
 github.com/golang-jwt/jwt/v5 v5.2.3 h1:kkGXqQOBSDDWRhWNXTFpqGSCMyh/PLnqUvMGJPDJDs0=
 github.com/golang-jwt/jwt/v5 v5.2.3/go.mod h1:pqrtFR0X4osieyHYxtmOUWsAWrfe1Q5UVIyoH402zdk=
 github.com/golang-jwt/jwt/v5 v5.3.0 h1:pv4AsKCKKZuqlgs5sUmn4x8UlGa0kEVt/puTpKx9vvo=
