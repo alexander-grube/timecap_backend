@@ -4,7 +4,7 @@ go 1.25.0
 
 require (
 	github.com/andybalholm/brotli v1.2.0 // indirect
-	github.com/go-playground/validator/v10 v10.27.0
+	github.com/go-playground/validator/v10 v10.28.0
 	github.com/klauspost/compress v1.18.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.66.0 // indirect
