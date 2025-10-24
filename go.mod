@@ -7,7 +7,7 @@ require (
 	github.com/go-playground/validator/v10 v10.28.0
 	github.com/klauspost/compress v1.18.1 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
-	github.com/valyala/fasthttp v1.67.0 // indirect
+	github.com/valyala/fasthttp v1.68.0 // indirect
 	golang.org/x/crypto v0.43.0
 	golang.org/x/sys v0.37.0 // indirect
 	gorm.io/driver/postgres v1.6.0
