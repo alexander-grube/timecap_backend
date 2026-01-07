@@ -7,7 +7,7 @@ require (
 	github.com/go-playground/validator/v10 v10.30.1
 	github.com/klauspost/compress v1.18.2 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
-	github.com/valyala/fasthttp v1.68.0 // indirect
+	github.com/valyala/fasthttp v1.69.0 // indirect
 	golang.org/x/crypto v0.46.0
 	golang.org/x/sys v0.39.0 // indirect
 	gorm.io/driver/postgres v1.6.0
@@ -30,7 +30,7 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/gofiber/schema v1.6.0 // indirect
-	github.com/gofiber/utils/v2 v2.0.0-rc.5 // indirect
+	github.com/gofiber/utils/v2 v2.0.0-rc.6 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
