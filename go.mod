@@ -3,8 +3,8 @@ module github.com/spctr-cc/backend-bugtrack
 go 1.26.0
 
 require (
-	github.com/andybalholm/brotli v1.2.0 // indirect
-	github.com/go-playground/validator/v10 v10.30.1
+	github.com/andybalholm/brotli v1.2.1 // indirect
+	github.com/go-playground/validator/v10 v10.30.2
 	github.com/klauspost/compress v1.18.5 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.69.0 // indirect
