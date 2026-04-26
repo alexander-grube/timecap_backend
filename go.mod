@@ -17,7 +17,7 @@ require (
 require (
 	github.com/MicahParks/keyfunc/v2 v2.1.0
 	github.com/bytedance/sonic v1.15.0
-	github.com/gofiber/fiber/v3 v3.1.0
+	github.com/gofiber/fiber/v3 v3.2.0
 	github.com/golang-jwt/jwt/v5 v5.3.1
 	github.com/joho/godotenv v1.5.1
 )
