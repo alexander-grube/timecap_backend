@@ -61,6 +61,8 @@ github.com/gofiber/schema v1.8.6 h1:xVlbSg3vsyKVlfzRBps2tJ7pHx1d8mSgiaJye6Lb3xs=
 github.com/gofiber/schema v1.8.6/go.mod h1:Cxh3loYVG3FLA7FzW4C5G83pL/pmCmAnuaIJ5y2HwkU=
 github.com/gofiber/schema v1.8.7 h1:7cSagr2ObiUVFuitCOqjKMqIhV+oVbkanP4Ge/wHsnI=
 github.com/gofiber/schema v1.8.7/go.mod h1:fBz4T6uOepH3L+dYlz/yzQ0bFHPnfExkp/B3Qrk2VBI=
+github.com/gofiber/schema v1.8.8 h1:md5t65+Z9LttOuj7FdMcQ63D2+6GniT2ganLXwvTJM4=
+github.com/gofiber/schema v1.8.8/go.mod h1:Hzf0L/fTPP1IwOAwKipKflm9C2722aebnSKJCMOgb1I=
 github.com/gofiber/utils/v2 v2.1.0 h1:WSu4COJhJw9moNfJu2nQvaM9AFvAQ/nZbigjhHqKgOQ=
 github.com/gofiber/utils/v2 v2.1.0/go.mod h1:DdOgEVwQTi8cou/AKWPqhXOR4fHGRVhA/rEWL3IXG7Q=
 github.com/gofiber/utils/v2 v2.1.1 h1:kGnoGjwEnFW6w0x45W+kLlmMJvqBGkuUA4oMWKn/T/I=
@@ -71,6 +73,8 @@ github.com/gofiber/utils/v2 v2.5.2 h1:bX+iACKsCGm2+dW7jvkYSiWIsBaKqFy5slFSxJSIL/
 github.com/gofiber/utils/v2 v2.5.2/go.mod h1:EaVDjy4JJv0m0lg6x4owJ1GG8j1pMO8XriqCgVns1ZQ=
 github.com/gofiber/utils/v2 v2.5.3 h1:8bOn+DSKeANT8R/eqm+g2FHU/8uuE4Ed2IXOrijS0yw=
 github.com/gofiber/utils/v2 v2.5.3/go.mod h1:tc9KqdRAQZRD/u0mN2d1ZHROGheSZv+0FcC9cg5OEdw=
+github.com/gofiber/utils/v2 v2.6.1 h1:x3zsS/oUQz0ia2Zx8XXtG/7naR5a+/95FRO8mwQ5QQ4=
+github.com/gofiber/utils/v2 v2.6.1/go.mod h1:tc9KqdRAQZRD/u0mN2d1ZHROGheSZv+0FcC9cg5OEdw=
 github.com/golang-jwt/jwt/v5 v5.3.1 h1:kYf81DTWFe7t+1VvL7eS+jKFVWaUnK9cB1qbwn63YCY=
 github.com/golang-jwt/jwt/v5 v5.3.1/go.mod h1:fxCRLWMO43lRc8nhHWY6LGqRcf+1gQWArsqaEUEa5bE=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
@@ -97,6 +101,8 @@ github.com/klauspost/compress v1.19.0 h1:sXLILfc9jV2QYWkzFOPWStmcUVH2RHEB1JCdY2o
 github.com/klauspost/compress v1.19.0/go.mod h1:cwPg85FWrGar70rWktvGQj8/hthj3wpl0PGDogxkrSQ=
 github.com/klauspost/compress v1.20.0 h1:a3C1ke2ohxFymNlb2HWAHjDeKCI90scRskErZkR0ezA=
 github.com/klauspost/compress v1.20.0/go.mod h1:LUdAzn7YLVvxLpc7y3V1m40wESHTgc1422pwwBSKYuI=
+github.com/klauspost/compress v1.20.1 h1:T7kKElXUMXrUJ2E9QhQhxFtcK5rPyLdsGZvdbLMPdiQ=
+github.com/klauspost/compress v1.20.1/go.mod h1:LUdAzn7YLVvxLpc7y3V1m40wESHTgc1422pwwBSKYuI=
 github.com/klauspost/cpuid/v2 v2.3.0 h1:S4CRMLnYUhGeDFDqkGriYKdfoFlDnMtqTiI/sFzhA9Y=
 github.com/klauspost/cpuid/v2 v2.3.0/go.mod h1:hqwkgyIinND0mEev00jJYCxPNVRVXFQeu1XKlok6oO0=
 github.com/klauspost/cpuid/v2 v2.4.0 h1:S6Hrbc7+ywsr0r+RLapfGBHfyefhCTwEh3A0tV913Dw=

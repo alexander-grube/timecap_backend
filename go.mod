@@ -5,7 +5,7 @@ go 1.26.0
 require (
 	github.com/andybalholm/brotli v1.2.3 // indirect
 	github.com/go-playground/validator/v10 v10.30.5
-	github.com/klauspost/compress v1.20.0 // indirect
+	github.com/klauspost/compress v1.20.1 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.74.0 // indirect
 	golang.org/x/crypto v0.57.0
@@ -29,8 +29,8 @@ require (
 	github.com/gabriel-vasile/mimetype v1.4.15 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.2 // indirect
-	github.com/gofiber/schema v1.8.7 // indirect
-	github.com/gofiber/utils/v2 v2.5.3 // indirect
+	github.com/gofiber/schema v1.8.8 // indirect
+	github.com/gofiber/utils/v2 v2.6.1 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
